@@ -232,7 +232,7 @@ STICKIES
 
 ## Indexing and subsetting data frames
 
-```{r, echo=FALSE, purl=TRUE}
+```{r, eval=FALSE,echo=FALSE, purl=TRUE}
 # When extracting a 1-dimensional vector, only have to give one coordinate e.g.
 # To extract the fifth element of my_vector:
 my_vector[5]
