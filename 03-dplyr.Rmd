@@ -14,86 +14,73 @@ suppressWarnings(surveys$date <- lubridate::ymd(paste(surveys$year,
 
 ### Manipulating and analyzing data with dplyr
 
+Kia ora
+
+-- last time we learned about data frames, and tricky stuff like strings and factors
+
+-- in this session we are going to learn about a couple of packages within the tidyverse that make it easier to pull things we are interested in out of data frames, as well as doing manipulations directly on this data 
+
+-- Start up R studio, red sticky if any issues
+
+-- Link to class etherpad is up on whiteboard
+
+-- In it is the link to today's lesson if you want to revisit it
+
+-- Feel free to leave feedback in it: I get better at teaching based on feedback
+
+-- I'll also put all the code I write today in the etherpad so I think you'll get most out of following along and trying to do the code rather than taking notes
+
+
+
 ------------
 
 > ### Learning Objectives
->
-> * Describe the purpose of the **`dplyr`** and **`tidyr`** packages.
-> * Select certain columns in a data frame with the **`dplyr`** function `select`.
-> * Select certain rows in a data frame according to filtering conditions with the **`dplyr`** function `filter` .
-> * Link the output of one **`dplyr`** function to the input of another function with the 'pipe' operator `%>%`.
-> * Add new columns to a data frame that are functions of existing columns with `mutate`.
-> * Use the split-apply-combine concept for data analysis.
-> * Use `summarize`, `group_by`, and `count` to split a data frame into groups of observations, apply a summary statistics for each group, and then combine the results.
-> * Describe the concept of a wide and a long table format and for which purpose those formats are useful.
-> * Describe what key-value pairs are.
-> * Reshape a data frame from long to wide format and back with the `spread` and `gather` commands from the **`tidyr`** package.
-> * Export a data frame to a .csv file.
+> * We are specifically going to cover using dplyr to select columns and rows we are interested in
+> * How to use pipes to whiz our data from one fuction to another
+> * how to add new columns based on doing stuff to existing columns
+> * how to split our data up, do stuff, and then summarize the output so we can get combined summary statistics and few other technical bits and pieces 
 
 ------------
 
 # Data Manipulation using **`dplyr`** and **`tidyr`**
 
-Bracket subsetting is handy, but it can be cumbersome and difficult to read,
-especially for complicated operations. Enter **`dplyr`**. **`dplyr`** is a package for
-making tabular data manipulation easier. It pairs nicely with **`tidyr`** which enables you to swiftly convert between different data formats for plotting and analysis.
+Packages in R are basically sets of additional functions that let you do more stuff. 
 
-Packages in R are basically sets of additional functions that let you do more
-stuff. The functions we've been using so far, like `str()` or `data.frame()`,
-come built into R; packages give you access to more of them. Before you use a
-package for the first time you need to install it on your machine, and then you
-should import it in every subsequent R session when you need it. You should
-already have installed the **`tidyverse`** package. This is an
-"umbrella-package" that installs several packages useful for data analysis which
-work together well such as **`tidyr`**, **`dplyr`**, **`ggplot2`**, **`tibble`**, etc.
+So far we've been using functions built into R
+
+packages give you access to more of them.
+
+To start off load the package tidyverse:
+
+```{r, message = FALSE, purl = FALSE}
+## Before you use a package the first time you need to install it
+install.packages("tidyverse")
+
+## then load the tidyverse packages, incl. dplyr
+library("tidyverse")
+
+# Next time you go to R, you don't have to do 
+# install.packages step
+```
+
+Tidyverse is an "umbrella-package" that installs several packages useful for data analysis which
+work together well such as **`tidyr`**, **`dplyr`**, and **`ggplot2`**
 
 
-The **`tidyverse`** package tries to address 3 common issues that arise when
-doing data analysis with some of functions that come with R:
-
+**`tidyverse`**  tries to address 3 common issues 
 1. The results from a base R function sometimes depend on the type of data.
-2. Using R expressions in a non standard way, which can be confusing for new
-   learners.
-3. Hidden arguments, having default operations that new learners are not aware
-   of.
+2. Using R expressions in a non standard way can be confusing for new learners.
+3. Hidden arguments, having default operations that new learners are not aware of.
 
-We have seen in our previous lesson that when building or importing a data frame, the columns that contain characters (i.e., text) are coerced (=converted) into the `factor` data type. We had to set **`stringsAsFactors`** to **`FALSE`** to avoid this hidden argument to convert our data type. 
+One big example of this is how we had to set **`stringsAsFactors`** to **`FALSE`** to avoid our data being coerced/forced this hidden argument to convert our data type. 
 
 This time will use the **`tidyverse`** package to read the data and avoid having to set **`stringsAsFactors`** to **`FALSE`**
 
-To load the package type:
-
-
-```{r, message = FALSE, purl = FALSE}
-## load the tidyverse packages, incl. dplyr
-library("tidyverse")
-```
-
-## What are **`dplyr`** and **`tidyr`**?
-
-The package **`dplyr`** provides easy tools for the most common data manipulation
-tasks. It is built to work directly with data frames, with many common tasks
-optimized by being written in a compiled language (C++). An additional feature is the
-ability to work directly with data stored in an external database. The benefits of
-doing this are that the data can be managed natively in a relational database,
-queries can be conducted on that database, and only the results of the query are
-returned.
-
-This addresses a common problem with R in that all operations are conducted
-in-memory and thus the amount of data you can work with is limited by available
-memory. The database connections essentially remove that limitation in that you
-can connect to a database of many hundreds of GB, conduct queries on it directly, and pull
-back into R only what you need for analysis.
-
-The package **`tidyr`** addresses the common problem of wanting to reshape your data for plotting and use by different R functions. Sometimes we want data sets where we have one row per measurement. Sometimes we want a data frame where each measurement type has its own column, and rows are instead more aggregated groups - like plots or aquaria. Moving back and forth between these formats is nontrivial, and **`tidyr`** gives you tools for this and more sophisticated  data manipulation.
-
-To learn more about **`dplyr`** and **`tidyr`** after the workshop, you may want to check out this
-[handy data transformation with **`dplyr`** cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf) and this [one about **`tidyr`**](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf).
-
 We'll read in our data using the `read_csv()` function, from the tidyverse package **`readr`**, instead of `read.csv()`.
 
-
 ```{r, results = 'hide', purl = FALSE}
+# read_csv is part of the tidyverse package readr
+# compared to read.csv that we've already seen
 surveys <- read_csv("data/portal_data_joined.csv")
 
 ## inspect the data
@@ -105,48 +92,69 @@ str(surveys)
 
 Notice that the class of the data is now `tbl_df`
 
-This is referred to as a "tibble". Tibbles tweak some of the behaviors of the data frame objects we introduced in the previous episode. The data structure is very similar to a data frame. For our purposes the only differences are that:
+This is referred to as a "tibble". Tibbles are very similar to a data frame. For our purposes the only differences are that:
 
-1. In addition to displaying the data type of each column under its name, it
-   only prints the first few rows of data and only as many columns as fit on one
-   screen.
+1. It displays the data type of each column under its name, it only prints the first few rows of data and only as many columns as fit on one screen.
 2. Columns of class `character` are never converted into factors.
 
+STICKIES
+
+In a moment we are going to get in to the most common functions we use with the tidyverse package dplyr, but first...
+
+## What are **`dplyr`** and **`tidyr`**?
+
+**`dplyr`** is a package for
+making tabular data manipulation easier than using the subsetting we talked about previously. 
+
+It pairs nicely with **`tidyr`** which enables you to swiftly reshape your data for plotting and use by different R functions. Sometimes we want data sets where we have one row per measurement. Sometimes we want a data frame rows are clumps of measurements like plots or species. 
+
+To learn more about **`dplyr`** and **`tidyr`** after the workshop, you may want to check out this
+[handy data transformation with **`dplyr`** cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf) and this [one about **`tidyr`**](https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf).
 
 We're going to learn some of the most common **`dplyr`** functions:
 
-- `select()`: subset columns
-- `filter()`: subset rows on conditions
-- `mutate()`: create new columns by using information from other columns
-- `group_by()` and `summarize()`: create summary statisitcs on grouped data
-- `arrange()`: sort results
-- `count()`: count discrete values
+```{r, results = 'hide', purl = FALSE}
+#subset columns. seleCt (c = columns)
+select()
+# subset rows on conditions. filteR (r = rows)
+filter()
+#create new columns by using information from other columns
+mutate()
+#create summary statisitcs on grouped data
+group_by() %>% summarize() # I'll explain the crazy %>% thing in a minute
+# sort results
+arrange()
+# count discrete values
+count()
+```
 
 ## Selecting columns and filtering rows
 
-To select columns of a data frame, use `select()`. The first argument
-to this function is the data frame (`surveys`), and the subsequent
-arguments are the columns to keep.
 
 ```{r, results = 'hide', purl = FALSE}
+#To select columns of a data frame, use `select()`
+# First argument is the data frame (`surveys`)
+# subsequent arguments are the columns to keep.
 select(surveys, plot_id, species_id, weight)
 ```
 
-To select all columns *except* certain ones, put a "-" in front of
-the variable to exclude it.
 
 ```{r, results = 'hide', purl = FALSE}
+# To select all columns *except* certain ones, put a # "-" in front of the variable to exclude it.
 select(surveys, -record_id, -species_id)
 ```
-
-This will select all the variables in `surveys` except `record_id`
-and `species_id`.
 
 To choose rows based on a specific criteria, use `filter()`:
 
 ```{r, purl = FALSE}
+# Pulling out rows
 filter(surveys, year == 1995)
 ```
+
+Boom folks, that's the first three learning objectives 
+- describing what dplyr and tidyr are useful for
+- selecting columns using select
+- selecting rows using filter
 
 ## Pipes
 
