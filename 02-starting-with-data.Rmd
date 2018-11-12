@@ -10,18 +10,79 @@ source("setup.R")
 
 ------------
 
-> ### Learning Objectives
+Kia ora
+
+-- last time we learned how to create objects and use comments and functions
+
+-- we also learned about a data type called a vector
+
+-- which you could think of as a bunch of values all in a line
+
+-- in this session we are going to learn about data frames, which are another data type
+
+-- kind of like R's version of an excel spreadsheet
+
+-- Start up R studio, red sticky if any issues
+
+-- Link to class etherpad is up on page
+
+-- In it is the link to today's lesson if you want to revisit it
+
+-- Feel free to leave feedback in it: I get better at teaching based on feedback
+
+-- I'll also put all the code I write today in the etherpad so I think you'll get most out of following along and trying to do the code rather than taking notes
+
+> ### Specific Learning Objectives
 >
-> * Describe what a data frame is.
-> * Load external data from a .csv file into a data frame.
-> * Summarize the contents of a data frame.
-> * Describe what a factor is.
-> * Convert between strings and factors.
-> * Reorder and rename factors.
-> * Change how character strings are handled in a data frame.
-> * Format dates.
+> * You'll be learning about data frames, how to pull a comma-delimited-file (an csv file) from your computer into R to create a data frame, and how to figure out what is in the data frame.
+> * We'll also be talking a lot about something called a factor, how to convert between strings and factors, and how to handle strings and factors
+> * We'll finish up with how to format dates.
 
 ------------
+
+STICKIES
+
+## Getting the data
+
+```{r, eval=FALSE, purl=TRUE}
+# We are going to use the R function `download.file()` to download the CSV file
+# download.file("where are we downloading from?", "what do we want to call the downloaded file?")
+
+download.file("https://ndownloader.figshare.com/files/2292169",
+              "data/portal_data_joined.csv")
+```
+
+
+You'll need to have a folder on your machine called "data" where 
+you'll download the file. So this command downloads a file from figshare, names it 
+"portal_data_joined.csv," and adds it to a preexisting folder named "data."
+
+
+
+You are now ready to load the data:
+that contains the survey data from figshare, and we will use `read.csv()` to
+load into memory the content of the CSV file as an object of class `data.frame`. 
+
+
+
+```{r, eval=TRUE,  purl=FALSE}
+surveys <- read.csv("data/portal_data_joined.csv")
+```
+
+This statement doesn't produce any output because, as you might recall,
+assignments don't display anything. If we want to check that our data has been
+loaded, we can see the contents of the data frame by typing its name: `surveys`.
+
+Wow... that was a lot of output. At least it means the data loaded
+properly. Let's check the top (the first 6 lines) of this data frame using the
+function `head()`:
+
+```{r, results='show', purl=FALSE}
+head(surveys)
+## Try also
+## View(surveys)
+```
+
 
 ## Presentation of the Survey Data
 
@@ -49,40 +110,8 @@ Each row holds information for a single animal, and the columns represent:
 | taxon             | e.g. Rodent, Reptile, Bird, Rabbit |
 | plot\_type       | type of plot                       |
 
-We are going to use the R function `download.file()` to download the CSV file
-that contains the survey data from figshare, and we will use `read.csv()` to
-load into memory the content of the CSV file as an object of class `data.frame`. 
-Inside the download.file command, the first entry is a character string with the source URL 
-("https://ndownloader.figshare.com/files/2292169"). This source URL downloads a CSV file from 
-figshare. The text after the comma ("data/portal_data_joined.csv") is the destination of the 
-file on your local machine. You'll need to have a folder on your machine called "data" where 
-you'll download the file. So this command downloads a file from figshare, names it 
-"portal_data_joined.csv," and adds it to a preexisting folder named "data."
 
-```{r, eval=FALSE, purl=TRUE}
-download.file("https://ndownloader.figshare.com/files/2292169",
-              "data/portal_data_joined.csv")
-```
 
-You are now ready to load the data:
-
-```{r, eval=TRUE,  purl=FALSE}
-surveys <- read.csv("data/portal_data_joined.csv")
-```
-
-This statement doesn't produce any output because, as you might recall,
-assignments don't display anything. If we want to check that our data has been
-loaded, we can see the contents of the data frame by typing its name: `surveys`.
-
-Wow... that was a lot of output. At least it means the data loaded
-properly. Let's check the top (the first 6 lines) of this data frame using the
-function `head()`:
-
-```{r, results='show', purl=FALSE}
-head(surveys)
-## Try also
-## View(surveys)
-```
 
 > ### Note
 >
