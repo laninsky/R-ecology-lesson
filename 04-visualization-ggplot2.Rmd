@@ -54,6 +54,8 @@ library(tidyverse)
 surveys_complete <- read_csv("data_output/surveys_complete.csv")
 ```
 
+STICKIES
+
 ## Plotting with **`ggplot2`**
 
 -- ggplot graphics are built step by step
@@ -70,6 +72,8 @@ ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) +  <GEOM_FUNCTION>()
 ggplot(data = surveys_complete)
 ```
 
+Not much to look at
+
 ```{r, eval=FALSE, purl=FALSE}
 # Defining variables by mapping them using
 # the aes function e.g. x/y, colour, size etc
@@ -78,6 +82,8 @@ ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length))
 # Stuff defined inside ggplot() parenthenses
 # applies to the whole plot
 ```
+
+At least now we have axes
 
 Now adding actual data points known as 'geoms' e.g. points, lines, bars
 
@@ -119,6 +125,8 @@ I mentioned before that anything you put in the `ggplot()` function can be seen 
 
 - You can also specify mappings for a given geom independently
 
+- BUT when we are adding geom layers there is an important rule about where the + goes
+
 ```{r, ggplot-with-plus-position, eval=FALSE, purl=FALSE}
 # This is the correct syntax for adding layers
 # (+ has to be at end of the the line)
@@ -130,110 +138,86 @@ surveys_plot
   + geom_point()
 ```
 
-> ### Challenge (optional)
->
-> Scatter plots can be useful exploratory tools for small datasets. For data
-> sets with large numbers of observations, such as the `surveys_complete` data
-> set, overplotting of points can be a limitation of scatter plots. One strategy
-> for handling such settings is to use hexagonal binning of observations. The
-> plot space is tessellated into hexagons. Each hexagon is assigned a color
-> based on the number of observations that fall within its boundaries.  To use
-> hexagonal binning with **`ggplot2`**, first install the R package `hexbin`
-> from CRAN:
->
->
-> ```{r, eval = FALSE}
-> install.packages("hexbin")
-> library(hexbin)
-> ```
->
-> Then use the `geom_hex()` function:
->
-> ```{r, eval = FALSE}
-> surveys_plot +
->  geom_hex()
-> ```
->
-> - What are the relative strengths and weaknesses of a hexagonal bin plot
->   compared to a scatter plot? Examine the above scatter plot and compare it
->   with the hexagonal bin plot that you created.
+One problem with scatterplots and a ton of data: too many dots all on top of each other. One solution? hexagonal binning (colour coding the hexagon based on number of observations)
 
-```{r hexbin-challenge, echo=FALSE, eval=FALSE, purl=TRUE}
-### Challenge with hexbin
-##
-## To use the hexagonal binning with **`ggplot2`**, first install the `hexbin`
-## package from CRAN:
-
+```{r, ggplot-with-plus-position, eval=FALSE, purl=FALSE}
+# To use hexagonal binning with ggplot2, first install the R package `hexbin`
 install.packages("hexbin")
 library(hexbin)
 
-## Then use the `geom_hex()` function:
-
+# Then use the `geom_hex()` function:
 surveys_plot +
-    geom_hex()
-
-## What are the relative strengths and weaknesses of a hexagonal bin
-## plot compared to a scatter plot?
+geom_hex()
 ```
 
-
-
-**`ggplot2`** is a plotting package that makes it simple to create complex plots
-from data in a data frame. It provides a more programmatic interface for
-specifying what variables to plot, how they are displayed, and general visual
-properties. Therefore, we only need minimal changes if the underlying data change
-or if we decide to change from a bar plot to a scatterplot. This helps in creating
-publication quality plots with minimal amounts of adjustments and tweaking.
-
-**`ggplot2`** functions like data in the 'long' format, i.e., a column for every dimension,
-and a row for every observation. Well-structured data will save you lots of time
-when making figures with **`ggplot2`**
-
-
-
+STICKIES
 
 ## Building your plots iteratively
+
+We've seen the basic process for building a ggplot iteratively, as well as a few of the different plot types available. Now we are going to look at some more options we can add in.
 
 Building plots with **`ggplot2`** is typically an iterative process. We start by
 defining the dataset we'll use, lay out the axes, and choose a geom:
 
 ```{r create-ggplot-object, purl=FALSE}
+# Building a plot in ggplot2 is iterative
+# We first define the dataset we'll use, lay out the axes, chose a geom
 ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length)) +
     geom_point()
 ```
+
+Point out the + is at the end of the line
 
 Then, we start modifying this plot to extract more information from it. For
 instance, we can add transparency (`alpha`) to avoid overplotting:
 
 ```{r adding-transparency, purl=FALSE}
+# Can then start modifying plot to display more information
+# e.g. using transperancy to avoid overplotting
 ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length)) +
     geom_point(alpha = 0.1)
 ```
 
-We can also add colors for all the points:
-
 ```{r adding-colors, purl=FALSE}
+# Can make the points a specific colour instead of black (the default)
 ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length)) +
     geom_point(alpha = 0.1, color = "blue")
 ```
 
-Or to color each species in the plot differently, you could use a vector as an input to the argument **color**. **`ggplot2`** will provide a different color corresponding to different values in the vector. Here is an example where we color with **`species_id`**:
+Mention again "optional" function arguments
 
+What about colouring by another variable, like species?
 
 ```{r color-by-species, purl=FALSE}
+# How to color points by another variable - supply this to the aes() function
 ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length)) +
     geom_point(alpha = 0.1, aes(color = species_id))
+
+# If we remove the transparancy we can see the dots a little easier
+ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length)) +
+    geom_point(aes(color = species_id))
+
+# Could also specify the color as a universal setting
+ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length, color = species_id)) +
+    geom_point()
+
 ```
 
-> ### Challenge
->
-> Use what you just learned to create a scatter plot of `weight` over
-> `species_id` with the plot types showing in different colors. Is this a good
-> way to show this type of data?
-> ```{r scatter-challenge, answer=TRUE, purl=FALSE}
-> ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
->    geom_point(aes(color = plot_type))
-> ```
+STICKIES
+
+## Challenge time!
+
+Five minutes
+
+```{r challenge-scatter, eval=FALSE, purl=FALSE}
+# Create a scatter plot of weight over species_id and colour points by species_id
+
+ggplot(data = surveys_complete, mapping = aes(x = species_id, y = weight)) +
+geom_point(aes(color = plot_type))
+```
+
+STICKIES
+Do you guys think that is a good way to show this data?
 
 
 ## Boxplot
@@ -597,6 +581,23 @@ Note: The parameters `width` and `height` also determine the font size in the sa
 ##  ggplot2 cheat sheet for inspiration:
 ##  https://www.rstudio.com/wp-content/uploads/2015/08/ggplot2-cheatsheet.pdf
 ```
+
+
+**`ggplot2`** is a plotting package that makes it simple to create complex plots
+from data in a data frame. It provides a more programmatic interface for
+specifying what variables to plot, how they are displayed, and general visual
+properties. Therefore, we only need minimal changes if the underlying data change
+or if we decide to change from a bar plot to a scatterplot. This helps in creating
+publication quality plots with minimal amounts of adjustments and tweaking.
+
+**`ggplot2`** functions like data in the 'long' format, i.e., a column for every dimension,
+and a row for every observation. Well-structured data will save you lots of time
+when making figures with **`ggplot2`**
+
+
+STICKIES
+FEEDBACK IN ETHERPAD
+
 
 ```{r, child="_page_built_on.Rmd"}
 ```
