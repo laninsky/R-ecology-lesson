@@ -52,7 +52,7 @@ packages give you access to more of them.
 
 To start off load the package tidyverse:
 
-```{r, message = FALSE, purl = FALSE}
+```{r, eval=FALSE,message = FALSE, purl = FALSE}
 ## Before you use a package the first time you need to install it
 install.packages("tidyverse")
 
@@ -113,7 +113,7 @@ To learn more about **`dplyr`** and **`tidyr`** after the workshop, you may want
 
 We're going to learn some of the most common **`dplyr`** functions:
 
-```{r, results = 'hide', purl = FALSE}
+```{r, eval=FALSE,results = 'hide', purl = FALSE}
 #subset columns. seleCt (c = columns)
 select()
 # subset rows on conditions. filteR (r = rows)
