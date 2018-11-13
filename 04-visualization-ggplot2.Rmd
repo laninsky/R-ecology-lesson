@@ -42,7 +42,7 @@ Kia ora folks!
 
 --------------
 
-```{r load-package, message=FALSE, purl=FALSE}
+```{r load-package, eval=FALSE,message=FALSE, purl=FALSE}
 # Load tidyverse
 library(tidyverse)
 ```
@@ -87,7 +87,7 @@ At least now we have axes
 
 Now adding actual data points known as 'geoms' e.g. points, lines, bars
 
-```{r first-ggplot, purl=FALSE}
+```{r first-ggplot, eval=FALSE, purl=FALSE}
 # To add a geom to the plot use the `+` operator
 ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length)) +
   geom_point()
@@ -95,7 +95,7 @@ ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length)) 
 
 
 As well as 
-```
+```{r, eval=FALSE, purl=FALSE}
 # for scatter plots, dot plots, etc.
 geom_point()
 
@@ -109,7 +109,7 @@ geom_line()
 The `+` in the **`ggplot2`** package is  useful because it allows you
 to modify existing `ggplot` objects. 
 
-```{r, first-ggplot-with-plus, eval=FALSE, purl=FALSE}
+```{r, eval=FALSE, purl=FALSE}
 # Assign plot to a variable
 surveys_plot <- ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length))
 
@@ -127,7 +127,7 @@ I mentioned before that anything you put in the `ggplot()` function can be seen 
 
 - BUT when we are adding geom layers there is an important rule about where the + goes
 
-```{r, ggplot-with-plus-position, eval=FALSE, purl=FALSE}
+```{r, eval=FALSE, purl=FALSE}
 # This is the correct syntax for adding layers
 # (+ has to be at end of the the line)
 surveys_plot +
@@ -159,7 +159,7 @@ We've seen the basic process for building a ggplot iteratively, as well as a few
 Building plots with **`ggplot2`** is typically an iterative process. We start by
 defining the dataset we'll use, lay out the axes, and choose a geom:
 
-```{r create-ggplot-object, purl=FALSE}
+```{r create-ggplot-object, eval=FALSE, purl=FALSE}
 # Building a plot in ggplot2 is iterative
 # We first define the dataset we'll use, lay out the axes, chose a geom
 ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length)) +
@@ -171,14 +171,14 @@ Point out the + is at the end of the line
 Then, we start modifying this plot to extract more information from it. For
 instance, we can add transparency (`alpha`) to avoid overplotting:
 
-```{r adding-transparency, purl=FALSE}
+```{r adding-transparency, eval=FALSE,purl=FALSE}
 # Can then start modifying plot to display more information
 # e.g. using transperancy to avoid overplotting
 ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length)) +
     geom_point(alpha = 0.1)
 ```
 
-```{r adding-colors, purl=FALSE}
+```{r adding-colors, eval=FALSE,purl=FALSE}
 # Can make the points a specific colour instead of black (the default)
 ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length)) +
     geom_point(alpha = 0.1, color = "blue")
@@ -188,7 +188,7 @@ Mention again "optional" function arguments
 
 What about colouring by another variable, like species?
 
-```{r color-by-species, purl=FALSE}
+```{r color-by-species, eval=FALSE,purl=FALSE}
 # How to color points by another variable - supply this to the aes() function
 ggplot(data = surveys_complete, mapping = aes(x = weight, y = hindfoot_length)) +
     geom_point(alpha = 0.1, aes(color = species_id))
@@ -218,6 +218,8 @@ geom_point(aes(color = plot_type))
 
 STICKIES
 Do you guys think that is a good way to show this data?
+
+GO TO MAIN LESSON
 
 
 ## Boxplot
