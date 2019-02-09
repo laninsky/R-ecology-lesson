@@ -52,3 +52,6 @@ maintainers, or come chat with us on the [Slack Channel for this lesson](https:/
 * François Michonneau
 * Brian Seok
 * Shiva Guru
+
+## Modifications by laninsky
+Lessons 00, 01, 02 (tidyverse), and 04 are up to date as of 9 Feb in respect to changes made in master that it made sense to make. Modified 02 (tidyverse) for changes that had to be made seeing as we are giving it a go presenting it straight after the intro.
