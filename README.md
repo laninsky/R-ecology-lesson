@@ -22,12 +22,10 @@ introduction to plotting. There is also a lesson on how to use databases from R 
 
 ## Topics
 
-* [Before we start](http://datacarpentry.org/R-ecology-lesson/00-before-we-start.html)
-* [Introduction to R](http://datacarpentry.org/R-ecology-lesson/01-intro-to-r.html)
-* [Starting with data](http://datacarpentry.org/R-ecology-lesson/02-starting-with-data.html)
-* [Aggregating and analyzing data with dplyr](http://datacarpentry.org/R-ecology-lesson/03-dplyr.html)
-* [Data visualization with ggplot2](http://datacarpentry.org/R-ecology-lesson/04-visualization-ggplot2.html)
-* [R and Databases](http://datacarpentry.org/R-ecology-lesson/05-r-and-databases.html)
+* [Before we start](https://github.com/laninsky/R-ecology-lesson/blob/master/00-before-we-start.Rmd)
+* [Introduction to R](https://github.com/laninsky/R-ecology-lesson/blob/master/01-intro-to-r.Rmd)
+* [Aggregating and analyzing data with dplyr](https://github.com/laninsky/R-ecology-lesson/blob/master/02-dplyr.Rmd)
+* [Data visualization with ggplot2](https://github.com/laninsky/R-ecology-lesson/blob/master/04-visualization-ggplot2.Rmd)
 
 ## Code handout
 
