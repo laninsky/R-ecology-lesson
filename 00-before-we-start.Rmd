@@ -51,7 +51,7 @@ For these lessons, I'm going to put any notes that I write in Rstudio up in the 
  "`R`" is both the program that sits under R studio, and the specific programming language that the program R understands. This double meaning can be a little confusing to begin with, but I promise it gets a little easier as you get used to working with and in R. 
 
 ## What is RStudio?
-R studio is this thing! It is software buit around the program R, that allows you to easily write, test, and run scripts written in the language R.
+R studio is this thing! It is software buit around the program R - so you also have to have R installeds, that allows you to easily write, test, and run scripts written in the language R.
 
 
 ## Why learn R?
@@ -78,7 +78,11 @@ On of the neat things about R is that it has over 10,000+ packages that can be i
 
 ### R works on data of all shapes and sizes
 
-The skills you learn in R work whether your dataset has hundreds or millions of lines.  It comes with functions that make handling of missing data and calculating stats convenient.
+The skills you learn in R work whether your dataset has hundreds or millions of lines.
+
+I've found it really useful for giant datasets that make excel sad
+
+It comes with functions that make handling of missing data and calculating stats convenient.
 
 It can also work with data stored in a bunch of different ways - R can connect to spreadsheets, databases, and other data types on both your computer and on the web.
 

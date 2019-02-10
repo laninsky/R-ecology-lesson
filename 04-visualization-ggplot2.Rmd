@@ -16,9 +16,7 @@ surveys_complete <- read_csv(file = "data_output/surveys_complete.csv", col_type
 
 Kia ora folks!
 
--- last time we learned tidyverse
-
--- i.e. how to filter and select
+-- If you were in the last R workshop on Monday you learned how to filter and select
 
 -- in this session we are going to learn to plot that data
 
@@ -30,7 +28,10 @@ Kia ora folks!
 
 -- Feel free to leave feedback in it: I get better at teaching based on feedback
 
--- I'll also put all the code I write today in the etherpad
+-- I'll also put all the code I write today in the etherpad, starting with the learning objectives.
+
+# Set up for data directory
+If you weren't here on Monday, inside your working directory, you'll need a folder called data_output. We'll download the "here's one I prepared earlier" surveys_complete.csv file from the ResBaz webpage.s
 
 ------------
 
@@ -220,7 +221,7 @@ STICKIES
 Do you guys think that is a good way to show this data?
 
 GO TO MAIN LESSON
-
+# UP TO HERE GOING THROUGH
 
 ## Boxplot
 
