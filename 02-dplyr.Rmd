@@ -12,6 +12,12 @@ suppressWarnings(surveys$date <- lubridate::ymd(paste(surveys$year,
                                                       sep = "-")))
 ```
 
+
+
+------------
+
+
+------------
 ### Manipulating and analyzing data with dplyr
 
 Kia ora
@@ -30,17 +36,13 @@ Kia ora
 
 Starting off with the learning objectives...
 
-
-
-------------
-
-> ### Learning Objectives
-> * We are specifically going to cover using dplyr to select columns and rows we are interested in
-> * How to use pipes to whiz our data from one fuction to another
-> * how to add new columns based on doing stuff to existing columns
-> * how to split our data up, do stuff, and then summarize the output so we can get combined summary statistics and few other technical bits and pieces 
-
-------------
+```{r, eval=FALSE,message = FALSE, purl = FALSE}
+### Learning Objectives
+# We are specifically going to cover using dplyr to select columns and rows we are interested in
+# How to use pipes to whiz our data from one fuction to another
+# how to add new columns based on doing stuff to existing columns
+# how to split our data up, do stuff, and then summarize the output so we can get combined summary statistics and few other technical bits and pieces 
+```
 
 # Data Manipulation using **`dplyr`** and **`tidyr`**
 

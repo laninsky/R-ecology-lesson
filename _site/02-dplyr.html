@@ -537,6 +537,8 @@ div.tocify {
 
 
 <pre><code>## Warning: package &#39;tibble&#39; was built under R version 3.5.2</code></pre>
+<hr />
+<hr />
 <div id="manipulating-and-analyzing-data-with-dplyr" class="section level3">
 <h3>Manipulating and analyzing data with dplyr</h3>
 <p>Kia ora</p>
@@ -547,17 +549,11 @@ div.tocify {
 <p>– Feel free to leave feedback in it: I get better at teaching based on feedback</p>
 <p>– I’ll also put all the code I write today in the etherpad so I think you’ll get most out of following along and trying to do the code rather than taking notes</p>
 <p>Starting off with the learning objectives…</p>
-<hr />
-<blockquote>
-<h3 id="learning-objectives">Learning Objectives</h3>
-<ul>
-<li>We are specifically going to cover using dplyr to select columns and rows we are interested in</li>
-<li>How to use pipes to whiz our data from one fuction to another</li>
-<li>how to add new columns based on doing stuff to existing columns</li>
-<li>how to split our data up, do stuff, and then summarize the output so we can get combined summary statistics and few other technical bits and pieces</li>
-</ul>
-</blockquote>
-<hr />
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Learning Objectives
+<span class="co"># We are specifically going to cover using dplyr to select columns and rows we are interested in</span>
+<span class="co"># How to use pipes to whiz our data from one fuction to another</span>
+<span class="co"># how to add new columns based on doing stuff to existing columns</span>
+<span class="co"># how to split our data up, do stuff, and then summarize the output so we can get combined summary statistics and few other technical bits and pieces </span></code></pre></div>
 </div>
 <div id="data-manipulation-using-dplyr-and-tidyr" class="section level1">
 <h1>Data Manipulation using <strong><code>dplyr</code></strong> and <strong><code>tidyr</code></strong></h1>
@@ -1062,7 +1058,7 @@ surveys_complete &lt;-<span class="st"> </span>surveys_complete <span class="op"
 <p>Now that our data set is ready, we can save it as a CSV file in our <code>data_output</code> folder.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write_csv</span>(surveys_complete, <span class="dt">path =</span> <span class="st">&quot;data_output/surveys_complete.csv&quot;</span>)</code></pre></div>
 <p style="text-align: right; font-size: small;">
-Page built on: 📆 2019-02-11 ‒ 🕢 11:28:36
+Page built on: 📆 2019-02-11 ‒ 🕢 11:35:04
 </p>
 </div>
 
