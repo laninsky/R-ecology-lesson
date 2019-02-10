@@ -191,15 +191,15 @@ weight_lb
 Alright, our first challenge! Going go give you guys two minutes to work through the following once I get it written down. If you get stuck, don't forget your red stickie!
 
 ```{r, eval=FALSE, purl=TRUE}
-### Challenge
-##
-## What are the values after each statement in the following?
-##
-## mass <- 47.5            # mass?
-## age  <- 122             # age?
-## mass <- mass * 2.0      # mass?
-## age  <- age - 20        # age?
-## mass_index <- mass/age  # mass_index?
+# Challenge
+#
+# What are the values after each statement in the following?
+#
+# mass <- 47.5            # mass?
+# age  <- 122             # age?
+# mass <- mass * 2.0      # mass?
+# age  <- age - 20        # age?
+# mass_index <- mass/age  # mass_index?
 ```
 
 Step through the challenge
