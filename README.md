@@ -25,7 +25,7 @@ introduction to plotting. There is also a lesson on how to use databases from R 
 * [Before we start](https://github.com/laninsky/R-ecology-lesson/blob/master/_site/00-before-we-start.html)
 * [Introduction to R](https://github.com/laninsky/R-ecology-lesson/blob/master/_site/01-intro-to-r.html)
 * [Aggregating and analyzing data with dplyr](https://github.com/laninsky/R-ecology-lesson/blob/master/_site/02-dplyr.html)
-* [Data visualization with ggplot2](https://github.com/laninsky/R-ecology-lesson/blob/master/04-visualization-ggplot2.Rmd)
+* [Data visualization with ggplot2]https://github.com/laninsky/R-ecology-lesson/blob/master/_site/04-visualization-ggplot2.html)
 
 ## Code handout
 
