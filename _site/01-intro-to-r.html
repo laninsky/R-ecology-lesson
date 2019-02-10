@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Data Carpentry contributors" />
+
+
+<title>Introduction to R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link rel="shortcut icon" href="favicon/favicon.ico">
+<link rel="icon" sizes="16x16 32x32 64x64" href="favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="196x196" href="favicon/favicon-192.png">
+<link rel="icon" type="image/png" sizes="160x160" href="favicon/favicon-160.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96.png">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16.png">
+<link rel="apple-touch-icon" href="favicon/favicon-57.png">
+<link rel="apple-touch-icon" sizes="114x114" href="favicon/favicon-114.png">
+<link rel="apple-touch-icon" sizes="72x72" href="favicon/favicon-72.png">
+<link rel="apple-touch-icon" sizes="144x144" href="favicon/favicon-144.png">
+<link rel="apple-touch-icon" sizes="60x60" href="favicon/favicon-60.png">
+<link rel="apple-touch-icon" sizes="120x120" href="favicon/favicon-120.png">
+<link rel="apple-touch-icon" sizes="76x76" href="favicon/favicon-76.png">
+<link rel="apple-touch-icon" sizes="152x152" href="favicon/favicon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/favicon-180.png">
+<meta name="msapplication-TileColor" content="#FFFFFF">
+<meta name="msapplication-TileImage" content="favicon/favicon-144.png">
+<meta name="msapplication-config" content="favicon/browserconfig.xml">
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script>
+  $( function() {
+  $( ".accordion" ).accordion({
+      heightStyle: "content",
+      active: false,
+      collapsible: true
+    });
+  } );
+</script>
+
+<script>
+  <!-- search menu pop-up --->
+  $(function() {
+    function slideToggle() {
+      $("#search-box").toggle("slide", 500);
+  };
+  $("#search-icon").on("click", function() {
+  slideToggle();
+  });
+  });
+</script>
+
+
+<!-- add  Algolia DocSearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="00-before-we-start.html">Before we start</a>
+</li>
+<li>
+  <a href="01-intro-to-r.html">Intro to R</a>
+</li>
+<li>
+  <a href="02-starting-with-data.html">Starting with data</a>
+</li>
+<li>
+  <a href="03-dplyr.html">Manipulating data frames</a>
+</li>
+<li>
+  <a href="04-visualization-ggplot2.html">Visualizing data</a>
+</li>
+<li>
+  <a href="05-r-and-databases.html">R and SQL</a>
+</li>
+<li>
+  <a href="code-handout.R">Code Handout</a>
+</li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+	<li class="search">
+	  <input id="search-box" type="text"  placeholder="Search...">
+	  <input type="submit">
+	</li>
+	<li class="search">
+	  <span id ="search-icon"><i class="fa fa-search fa-lg"></i></span>
+	</li>
+        <li>
+	  <a href="https://github.com/datacarpentry/R-ecology-lesson">
+	    <span class="fa fa-github fa-lg"></span>
+	  </a>
+	</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Introduction to R</h1>
+<h4 class="author"><em>Data Carpentry contributors</em></h4>
+
+</div>
+
+
+<hr />
+<hr />
+<p>OK guys, we are going to move on to the second part of the lesson now, which is where we are going to be running actual commands in R. I’m going to start a new R script for this one by clicking at the upper left here. I’m going to paste in the learning objectives for this part of the session.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#&gt; </span><span class="al">###</span><span class="co"> Learning Objectives</span>
+<span class="co">#&gt;</span>
+<span class="co">#&gt; * Define the following terms as they relate to R: object, assign, call,</span>
+<span class="co">#&gt;   function, arguments, options.</span>
+<span class="co">#&gt; * Assign values to objects in R.</span>
+<span class="co">#&gt; * Learn how to _name_ objects</span>
+<span class="co">#&gt; * Use comments to inform script.</span>
+<span class="co">#&gt; * Solve simple arithmetic operations in R.</span>
+<span class="co">#&gt; * Call functions and use arguments to change their default options.</span>
+<span class="co">#&gt; * Inspect the content of vectors and manipulate their content.</span>
+<span class="co">#&gt; * Subset and extract values from vectors.</span>
+<span class="co">#&gt; * Analyze vectors with missing data.</span></code></pre></div>
+<p>Alright, let’s get going! Please try to follow along in Rstudio, and if you get stuck, put up a stickie so one of the awesome helpers can give you a hand. I will be copying all this code into our etherpad, so you don’t need to worry about copying the explanations that start with a # symbol, just try to run the actual commands we shoot down to the console.</p>
+<p>To start off, You can get output from R simply by typing math:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># R can do maths for you</span>
+<span class="co"># Ctrl+Enter sends your commands from here, the script window, to the console below</span>
+<span class="dv">3</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span>
+<span class="dv">12</span> <span class="op">/</span><span class="st"> </span><span class="dv">7</span></code></pre></div>
+<p>And right there we’ve done one of our learning objectives!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Solve simple arithmetic operations in R.</span></code></pre></div>
+<p>Stickies if you couldn’t get that to work</p>
+<p>However, most of the time we are doing more than simple arithmetic and might need to save these values. To do this we need to assign <em>values</em> to <em>objects</em></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># To assigh a value to an object you use this guy &quot;&lt;-&quot;, the assignment operator</span>
+<span class="co"># It assign values on the right to objects on the left</span>
+<span class="co"># object &lt;- value</span>
+weight_kg &lt;-<span class="st"> </span><span class="dv">55</span>
+<span class="co"># Remember Ctrl+Enter shoots stuff down to the console below</span></code></pre></div>
+<p>You’ll might see = used in other people’s code instead of the assignment operator becauuse ths used to be a more common way to do things, but our funny little arrow guy is now the preferred way to do things.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># So that gets rid of another one of our learning objectives</span>
+<span class="co"># Assign values to objects in R.</span></code></pre></div>
+<p>Stickies if you are stuck</p>
+<p>What are some good object names for us to use?</p>
+<p>You can pretty much call them anything that doesn’t start with a number</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># object names cannot start with a number </span>
+2pac &lt;-<span class="st"> &quot;not valid object name&quot;</span>
+<span class="co"># Note, error messages are good! They let us know we need to fix something!</span>
+pac2 &lt;-<span class="st"> &quot;this is ok though&quot;</span>
+<span class="co"># ctrl+Enter to shoot things down to the console</span></code></pre></div>
+<p>However, although can call them anything, names which are meaningful and not too long are a good idea, because this will make it easier for you to follow your code when you come back to it (and for other people to understand it). Also be aware that R is case-sensitive</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># watch out for case sensitive</span>
+weight_kg &lt;-<span class="st"> </span><span class="dv">55</span>
+Weight_KG &lt;-<span class="st"> </span><span class="dv">60</span>
+<span class="co"># Can run our object names to see what values they contain</span>
+weight_kg
+Weight_KG</code></pre></div>
+<p>There are a few other things to avoid naming your objects such as if, else, and for because these are fundamental functions in R, so it won’t let you defined them as something else. It’s also a good idea to avoid other function names</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># This is not a good idea</span>
+mean &lt;-<span class="st"> &quot;something that is not a mean function&quot;</span>
+mean
+<span class="co"># How do you find out if something is already a function?</span>
+<span class="kw">mean</span>()
+<span class="kw">thisisdefinitelynotafunction</span>()</code></pre></div>
+<p>It’s also a good idea to avoid dots in names because these can have special meanings in R and other languages.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># This is also not a good idea</span>
+putting.dots.in.names &lt;-<span class="st"> </span><span class="dv">304</span>
+putting.dots.in.names</code></pre></div>
+<p>It is also recommended to use nouns for object names, and verbs for function names as part of having a clear coding style. You can read more about consistency in your coding style at the links embedded in the lesson link, which is on etherpad.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># And with that, we&#39;ve covered another learning objective!</span>
+<span class="co"># Learn how to _name_ objects</span></code></pre></div>
+<p>If anything is tripping you up so far please chuck up a stickie so a helper can help you.</p>
+<p>Just as a quick side bar, althoguh sometimes variable and objects can mean different things, in this lesson we’ll use the two terms interchangeably, so if I flip-flop between the two words, that’s why.</p>
+<p>OK, back to assigning values. When you assigning a value to an object, R does not print anything by default but you can force R to print the value by using parentheses or by typing the object name:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">weight_kg &lt;-<span class="st"> </span><span class="dv">55</span>    <span class="co"># doesn&#39;t print anything</span>
+(weight_kg &lt;-<span class="st"> </span><span class="dv">55</span>)  <span class="co"># but putting parenthesis around the call prints the value of `weight_kg`</span>
+weight_kg          <span class="co"># and so does typing the name of the object</span></code></pre></div>
+<p>Now that R has <code>weight_kg</code> in memory, we can do maths on it for example converting the weight in kg to weight in pounds</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Converting weight in kg to weight in pounds</span>
+<span class="fl">2.2</span> <span class="op">*</span><span class="st"> </span>weight_kg</code></pre></div>
+<p>We can also assign a new value to an object if we want</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Whoops, weight should actually be 57.5 not 55, let&#39;s change it!</span>
+weight_kg &lt;-<span class="st"> </span><span class="fl">57.5</span>
+<span class="fl">2.2</span> <span class="op">*</span><span class="st"> </span>weight_kg</code></pre></div>
+<p>Changing the value assigned to an object won’t change the values of objects previously calculated with it`:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Saving weight in pounds as a new variable, weight_lb</span>
+weight_lb &lt;-<span class="st"> </span><span class="fl">2.2</span> <span class="op">*</span><span class="st"> </span>weight_kg</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Now changing weight_kg to 100</span>
+weight_kg &lt;-<span class="st"> </span><span class="dv">100</span>
+<span class="co"># But this doesn&#39;t change the value in weight_lb, because it was calculated using</span>
+<span class="co"># the old version of weight_kg</span>
+weight_lb
+<span class="fl">2.2</span> <span class="op">*</span><span class="st"> </span>weight_kg</code></pre></div>
+<div id="comments" class="section level3">
+<h3>Comments</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># I&#39;ve been leaving messages starting with &quot;#&quot; all over my scripts</span>
+<span class="co"># these are comments! </span>
+<span class="co"># Anything to the right of the # is ignored</span>
+<span class="dv">200</span><span class="op">*</span><span class="dv">2</span>
+<span class="co">#300*2</span></code></pre></div>
+<p>Comments are handy for explaining what your script is doing. R studio also makes it really handy to easily comment or uncomment things</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># I can eeasily comment or uncomment all the following lines by Ctrl+Shift+c</span>
+<span class="dv">500</span> <span class="op">*</span><span class="st"> </span><span class="dv">5</span>
+<span class="dv">500</span> <span class="op">*</span><span class="st"> </span><span class="dv">4</span>
+weight_kg
+weight_lb</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Oh and before I forget, tab autocompletes words for you so you don&#39;t </span>
+<span class="co"># make as many typos</span>
+<span class="co"># SHOW EXAMPLE</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># That&#39;s another learning objective done</span>
+<span class="co">#Use comments to inform script.</span></code></pre></div>
+<p>Alright, our first challenge! Going go give you guys two minutes to work through the following once I get it written down. If you get stuck, don’t forget your red stickie!</p>
+<p>Step through the challenge</p>
+</div>
+<div id="functions-and-their-arguments" class="section level3">
+<h3>Functions and their arguments</h3>
+<p>The next thing we are going to cover are functions, which allow us to do more complicated bits and pieces. Some functions come with R, and we can get more by importing packages, which we’ll cover a bit later.</p>
+<p>We give the function inputs, which are known as arguments, and then it returns somehing, often a value.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># One of the functions in R is sqrt</span>
+<span class="co"># sqrt takes one argument, the number we want to get the sqrt of</span>
+<span class="co"># the value it gives back is the sqrt of that number</span>
+<span class="kw">sqrt</span>(<span class="dv">4</span>)
+<span class="co"># 4 is the argument, and 2 is the value returned</span>
+
+<span class="co"># If we want to save this value we need to assign it to an object</span>
+sqrt_four &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">4</span>)
+<span class="co"># Ctrl+Enter to shoot stuff down to the console</span></code></pre></div>
+<p>Running or Executing a function like this is also called calling the function</p>
+<p>A function doesn’t have return a number like the sqrt function does. The return value also doesn’t need to be a single item: it can be a set of things, or even a dataset. We’ll see that when we read data files into R.</p>
+<p>Arguments can also be anything, not only numbers or filenames, but also other objects. Many functions also take multiple arguments. Sometimes these functions can fill in these arguments with default values - these types of arguments are known as options. We’ll talk about how to figure out what arguments functions need in a sec, using a function that can take multiple arguments: <code>round()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># But in the meantime we&#39;ve achieved another learning objective!</span>
+<span class="co"># Define the following terms as they relate to R: object, assign, call,</span>
+<span class="co"># function, arguments, options.</span></code></pre></div>
+<p>Stickies if you are having trouble following</p>
+<p>OK, back to round…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="fl">3.14159</span>)</code></pre></div>
+<pre><code>#&gt; [1] 3</code></pre>
+<p>Here, we’ve called <code>round()</code> with just one argument, <code>3.14159</code>, and it has returned the value <code>3</code>. That’s because the default is to round to the nearest whole number.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># To get more information about the arguments we can use the args function</span>
+<span class="kw">args</span>(round)</code></pre></div>
+<pre><code>#&gt; function (x, digits = 0) 
+#&gt; NULL</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Or look at the help for round using</span>
+?round</code></pre></div>
+<pre><code>#&gt; starting httpd help server ... done</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We see that if we want a different number of digits, we can</span>
+<span class="kw">round</span>(<span class="fl">3.14159</span>, <span class="dt">digits =</span> <span class="dv">2</span>)</code></pre></div>
+<pre><code>#&gt; [1] 3.14</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># If you provide the arguments in the exact same order as they are defined you</span>
+<span class="co"># don&#39;t have to name them:</span>
+<span class="kw">round</span>(<span class="fl">3.14159</span>, <span class="dv">2</span>)</code></pre></div>
+<pre><code>#&gt; [1] 3.14</code></pre>
+<p>However, It is good practice to put the non-optional arguments (like the number you’re rounding) first in your function call, and to specify the names of all optional arguments. If you don’t, someone reading your code might have to look up the definition of a function with unfamiliar arguments to understand what you’re doing.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># If you name the arguments, you can switch their order:</span>
+<span class="kw">round</span>(<span class="dt">digits =</span> <span class="dv">2</span>, <span class="dt">x =</span> <span class="fl">3.14159</span>)</code></pre></div>
+<pre><code>#&gt; [1] 3.14</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># And that&#39;s another learning objective - </span>
+<span class="co"># Call functions and use arguments to change their default options.</span></code></pre></div>
+<p>Stickies if you are stuck</p>
+</div>
+<div id="vectors-and-data-types" class="section level2">
+<h2>Vectors and data types</h2>
+<p>Alright now we are goign to move on and talk about data types in R.</p>
+<p>A vector is the most common and basic data type in R, : it is composed by a series of values, which can be either numbers or characters.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We can assign a series of values to a vector using the c() function</span>
+weight_g &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">65</span>, <span class="dv">82</span>)
+weight_g</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># A vector can also contain characters:</span>
+animals &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;mouse&quot;</span>, <span class="st">&quot;rat&quot;</span>, <span class="st">&quot;dog&quot;</span>)
+animals
+
+<span class="co"># The quotes around &quot;mouse&quot;, &quot;rat&quot;, etc. are essential</span>
+<span class="co"># otherwise R will assume there are objects called `mouse`, `rat` and `dog</span>
+animals &lt;-<span class="st"> </span><span class="kw">c</span>(mouse, rat, dog)
+<span class="co"># Again, error messages == good! They tell us what we are doing wrong!</span></code></pre></div>
+<p>There a bunch of different ways to learn about what’s going on with a given vector</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#length() tells you how many elements are in a particular vector:</span>
+<span class="kw">length</span>(weight_g)
+<span class="kw">length</span>(animals)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># All the elements in a vector have to have the same type of data</span>
+frankenvector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;rat&quot;</span>,<span class="dv">3</span>,<span class="dv">4</span>)
+<span class="co"># If you try and mix diferent types of data, they will all be coerced to one type</span>
+
+<span class="co"># You can use class() to look at the type of data in a vector</span>
+<span class="kw">class</span>(weight_g)
+<span class="kw">class</span>(animals)
+<span class="kw">class</span>(frankenvector)
+<span class="co"># Reember you can use tab to autocomplete names</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The function `str()` provides an overview of the structure of an object</span>
+<span class="co"># especially good for large and complex objects</span>
+<span class="kw">str</span>(weight_g)
+<span class="kw">str</span>(animals)
+<span class="kw">str</span>(frankenvector)</code></pre></div>
+<p>What are some other things you might want to get up to? You might want to add more elements to your vector.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># You can use the `c()` function to add other elements to your vector:</span>
+<span class="co">#Take the original vector `weight_g`, add the value `90` to the end of it, and save the # result back into`weight_g`.</span>
+weight_g &lt;-<span class="st"> </span><span class="kw">c</span>(weight_g, <span class="dv">90</span>) <span class="co"># add to the end of the vector</span>
+<span class="co"># Then we add the value `30` to the beginning, again saving the result back into </span>
+<span class="co"># `weight_g`.</span>
+weight_g &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>, weight_g) <span class="co"># add to the beginning of the vector</span>
+weight_g</code></pre></div>
+<p>We can do this over and over again to grow a vector, or assemble a dataset, perhaps as part of a function we write ourselves to collect results.</p>
+<p>Alright so some more about vectors. the kinds of vectors we’ve been talking about are more precisely known as astomic vectors - vectors that have just a single data type. – We’ve covered 2 of the 6 main <strong>atomic vector</strong> types<code>&quot;character&quot;</code> and <code>&quot;numeric&quot;</code> (which is also known as <code>&quot;double&quot;</code>).</p>
+<p>The other 4 <strong>atomic vector</strong> types are:</p>
+<ul>
+<li><code>&quot;logical&quot;</code> for <code>TRUE</code> and <code>FALSE</code> (the boolean data type)</li>
+<li><code>&quot;integer&quot;</code> for integer numbers</li>
+</ul>
+<p>and two other types we won’t really go into here: * <code>&quot;complex&quot;</code> to represent complex numbers with real and imaginary parts (e.g., <code>1 + 4i</code>) and that’s all we’re going to say about them * <code>&quot;raw&quot;</code> for bitstreams that we won’t discuss further</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># You can check the type of your vector using the `typeof()` function </span>
+<span class="co"># with  your vector as the argument.</span>
+<span class="kw">typeof</span>(animals)
+<span class="kw">typeof</span>(weight_g)
+<span class="kw">typeof</span>(frankenvector)</code></pre></div>
+<p>Aside from vectors, other important data structures are lists (<code>list</code>), matrices (<code>matrix</code>), data frames (<code>data.frame</code>), factors (<code>factor</code>) and arrays (<code>array</code>). These will come up later as we continue to work with R.</p>
+<p>But for now, that’s another learning objective down:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Inspect the content of vectors and manipulate their content.</span></code></pre></div>
+OK guys, we’ve got another two minute challenge to go here! &gt; ### Challenge &gt; &gt; * What will happen in each of these examples? (hint: use <code>class()</code> &gt; to check the data type of your objects): &gt; &gt; <code>r &gt;     num_char &lt;- c(1, 2, 3, &quot;a&quot;) &gt;     num_logical &lt;- c(1, 2, 3, TRUE) &gt;     char_logical &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, TRUE) &gt;     tricky &lt;- c(1, 2, 3, &quot;4&quot;) &gt;</code> &gt; &gt; * Why do you think it happens? &gt; &gt;
+<div class="accordion">
+<blockquote>
+<h3 class="toc-ignore">
+Answer
+</h3>
+<div style="background: #fff;">
+<p>
+<p>Vectors can be of only one data type. R tries to convert (coerce) the content of this vector to find a “common denominator” that doesn’t lose any information.</p>
+<h2 id="subsetting-vectors">Subsetting vectors</h2>
+<p>The next thing we want to learn is how to extract bits and pieces from our vector</p>
+</div>
+</div>
+</p>
+</blockquote>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#If we want to extract one or several values from a vector, we provide one</span>
+<span class="co">#or several indices in square brackets.</span>
+animals &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;mouse&quot;</span>, <span class="st">&quot;rat&quot;</span>, <span class="st">&quot;dog&quot;</span>, <span class="st">&quot;cat&quot;</span>)
+animals[<span class="dv">2</span>]
+animals[<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>)]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># We can also repeat the indices to create an object with more elements than the</span>
+<span class="co">#original one:</span>
+
+more_animals &lt;-<span class="st"> </span>animals[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">4</span>)]
+more_animals</code></pre></div>
+<p>R indices start at 1 because that’s what human beings typically do. Languages in the C family (including C++, Java, Perl, and Python) count from 0 because that’s simpler for computers to do. If you are switching back and forward between python and R, that’s something to try and remember.</p>
+<div id="conditional-subsetting" class="section level3">
+<h3>Conditional subsetting</h3>
+<p>Now we are going to cover how to pull out elements from a vector that satisfy a particular condition that we are interested in.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># `TRUE` will select the element with the same index, while `FALSE` will not:</span>
+weight_g &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">21</span>, <span class="dv">34</span>, <span class="dv">39</span>, <span class="dv">54</span>, <span class="dv">55</span>)
+weight_g[<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">TRUE</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)]</code></pre></div>
+<p>Instead of typing by hand like this example, normally our true/false vectors are the output of other functions or logical tests.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># If you wanted to select only the values above 50:</span>
+weight_g <span class="op">&gt;</span><span class="st"> </span><span class="dv">50</span>    <span class="co"># will return logicals with TRUE for the indices that meet the condition</span>
+## so we can use this to select only the values above 50
+weight_g[weight_g <span class="op">&gt;</span><span class="st"> </span><span class="dv">50</span>]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># You can combine multiple tests using `&amp;` (both conditions are true, AND) or</span>
+<span class="co">#`|` (at least one of the conditions is true, OR):</span>
+weight_g[weight_g <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span> <span class="op">|</span><span class="st"> </span>weight_g <span class="op">&gt;</span><span class="st"> </span><span class="dv">50</span>]
+weight_g[weight_g <span class="op">&gt;=</span><span class="st"> </span><span class="dv">30</span> <span class="op">&amp;</span><span class="st"> </span>weight_g <span class="op">==</span><span class="st"> </span><span class="dv">21</span>]
+<span class="co">#`&lt;` stands for &quot;less than&quot;</span>
+<span class="co">#`&gt;` for &quot;greater than&quot;</span>
+<span class="co">#&#39;&gt;=` for &quot;greater than or equal to&quot;, </span>
+<span class="co">#`==` for &quot;equal to&quot; because`=` sign performs variable assignment (similar to `&lt;-`).</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#When comparing vectors to vectors to see if any of the elements of the query vector </span>
+<span class="co">#are found in the subhject vector, %in% is handy</span>
+
+animals &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;mouse&quot;</span>, <span class="st">&quot;rat&quot;</span>, <span class="st">&quot;dog&quot;</span>, <span class="st">&quot;cat&quot;</span>)
+animals[animals <span class="op">==</span><span class="st"> &quot;cat&quot;</span> <span class="op">|</span><span class="st"> </span>animals <span class="op">==</span><span class="st"> &quot;rat&quot;</span>] <span class="co"># returns both rat and cat</span>
+animals <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;rat&quot;</span>, <span class="st">&quot;cat&quot;</span>, <span class="st">&quot;dog&quot;</span>, <span class="st">&quot;duck&quot;</span>, <span class="st">&quot;goat&quot;</span>)
+animals[animals <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;rat&quot;</span>, <span class="st">&quot;cat&quot;</span>, <span class="st">&quot;dog&quot;</span>, <span class="st">&quot;duck&quot;</span>, <span class="st">&quot;goat&quot;</span>)]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Another learning objective</span>
+<span class="co">#Subset and extract values from vectors.</span></code></pre></div>
+Quick challenge - two minutes, stickies if you are stuck &gt; ### Challenge (optional){.challenge} &gt; &gt; * Can you figure out why <code>&quot;four&quot; &gt; &quot;five&quot;</code> returns <code>TRUE</code>? &gt; &gt;
+<div class="accordion">
+<blockquote>
+<h3 class="toc-ignore">
+Answer
+</h3>
+<div style="background: #fff;">
+<p>
+When using “&gt;” or “&lt;” on strings, R compares their alphabetical order. Here “four” comes after “five”, and therefore is “greater than” it.
+</div>
+</div>
+</p>
+</blockquote>
+</div>
+</div>
+<div id="missing-data" class="section level2">
+<h2>Missing data</h2>
+<p>As R was designed to analyze datasets, it is good at handling missing data, which are represented as <code>NA</code>. By default, most functions will return <code>NA</code> if the data you are working with include missing values to make it harder to overlook the cases where you are dealing with missing data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">heights &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="ot">NA</span>, <span class="dv">6</span>)
+<span class="kw">mean</span>(heights)
+<span class="kw">max</span>(heights)
+<span class="co">#You can add the argument `na.rm=TRUE` to calculate the result while ignoring</span>
+<span class="co">#the missing values.</span>
+<span class="kw">mean</span>(heights, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+<span class="kw">max</span>(heights, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>If your data include missing values, you may want to become familiar with the functions <code>is.na()</code>, <code>na.omit()</code>, and <code>complete.cases()</code>. See below for examples.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Extract those elements which are not missing values.
+heights[<span class="op">!</span><span class="kw">is.na</span>(heights)]
+
+## Returns the object with incomplete cases removed. The returned object is an atomic vector of type `&quot;numeric&quot;` (or `&quot;double&quot;`).
+<span class="kw">na.omit</span>(heights)
+
+## Extract those elements which are complete cases. The returned object is an atomic vector of type `&quot;numeric&quot;` (or `&quot;double&quot;`).
+heights[<span class="kw">complete.cases</span>(heights)]</code></pre></div>
+<p>OK, folks that’s the last learning objective covered!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Analyze vectors with missing data.</span></code></pre></div>
+<p>Recall that you can use the <code>typeof()</code> function to find the type of your atomic vector.</p>
+<blockquote>
+<h3 id="challenge">Challenge</h3>
+<ol style="list-style-type: decimal">
+<li><p>Using this vector of heights in inches, create a new vector with the NAs removed.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">heights &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">63</span>, <span class="dv">69</span>, <span class="dv">60</span>, <span class="dv">65</span>, <span class="ot">NA</span>, <span class="dv">68</span>, <span class="dv">61</span>, <span class="dv">70</span>, <span class="dv">61</span>, <span class="dv">59</span>, <span class="dv">64</span>, <span class="dv">69</span>, <span class="dv">63</span>, <span class="dv">63</span>, <span class="ot">NA</span>, <span class="dv">72</span>, <span class="dv">65</span>, <span class="dv">64</span>, <span class="dv">70</span>, <span class="dv">63</span>, <span class="dv">65</span>)</code></pre></div></li>
+<li><p>Use the function <code>median()</code> to calculate the median of the <code>heights</code> vector.</p></li>
+<li><p>Use R to figure out how many people in the set are taller than 67 inches.</p></li>
+</ol>
+<div class="accordion">
+<h3 class="toc-ignore">
+Answer
+</h3>
+<div style="background: #fff;">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">heights &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">63</span>, <span class="dv">69</span>, <span class="dv">60</span>, <span class="dv">65</span>, <span class="ot">NA</span>, <span class="dv">68</span>, <span class="dv">61</span>, <span class="dv">70</span>, <span class="dv">61</span>, <span class="dv">59</span>, <span class="dv">64</span>, <span class="dv">69</span>, <span class="dv">63</span>, <span class="dv">63</span>, <span class="ot">NA</span>, <span class="dv">72</span>, <span class="dv">65</span>, <span class="dv">64</span>, <span class="dv">70</span>, <span class="dv">63</span>, <span class="dv">65</span>)
+
+<span class="co"># 1.</span>
+heights_no_na &lt;-<span class="st"> </span>heights[<span class="op">!</span><span class="kw">is.na</span>(heights)] 
+<span class="co"># or</span>
+heights_no_na &lt;-<span class="st"> </span><span class="kw">na.omit</span>(heights)
+
+<span class="co"># 2.</span>
+<span class="kw">median</span>(heights, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+
+<span class="co"># 3.</span>
+heights_above_<span class="dv">67</span> &lt;-<span class="st"> </span>heights_no_na[heights_no_na <span class="op">&gt;</span><span class="st"> </span><span class="dv">67</span>]
+<span class="kw">length</span>(heights_above_<span class="dv">67</span>)</code></pre></div>
+</div>
+</div>
+</blockquote>
+<p>Next up, manipulating proper data sets!</p>
+<p style="text-align: right; font-size: small;">
+Page built on: <U+0001F4C6> 2019-02-10 <U+2012> <U+0001F562> 22:09:09
+</p>
+</div>
+
+<hr/>
+
+<p><a href="http://datacarpentry.org/">Data Carpentry</a>,
+  2018. <a href="LICENSE.html">License</a>. <a href="CONTRIBUTING.html">Contributing</a>. <br/>
+  Questions?  Feedback?
+  Please <a href="https://github.com/datacarpentry/R-ecology-lesson/issues/new">file
+  an issue on GitHub</a>. <br/> On
+  Twitter: <a href="https://twitter.com/datacarpentry">@datacarpentry</a></p>
+
+<!--  Algolia DocSearch -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+ apiKey: '4c64cef535ab2b7c8d1b73ed13f283e1',
+ indexName: 'datacarpentry',
+ inputSelector: '#search-box',
+ debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
