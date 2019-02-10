@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Data Carpentry contributors" />
+
+
+<title>Manipulating, analyzing and exporting data with tidyverse</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link rel="shortcut icon" href="favicon/favicon.ico">
+<link rel="icon" sizes="16x16 32x32 64x64" href="favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="196x196" href="favicon/favicon-192.png">
+<link rel="icon" type="image/png" sizes="160x160" href="favicon/favicon-160.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96.png">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16.png">
+<link rel="apple-touch-icon" href="favicon/favicon-57.png">
+<link rel="apple-touch-icon" sizes="114x114" href="favicon/favicon-114.png">
+<link rel="apple-touch-icon" sizes="72x72" href="favicon/favicon-72.png">
+<link rel="apple-touch-icon" sizes="144x144" href="favicon/favicon-144.png">
+<link rel="apple-touch-icon" sizes="60x60" href="favicon/favicon-60.png">
+<link rel="apple-touch-icon" sizes="120x120" href="favicon/favicon-120.png">
+<link rel="apple-touch-icon" sizes="76x76" href="favicon/favicon-76.png">
+<link rel="apple-touch-icon" sizes="152x152" href="favicon/favicon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/favicon-180.png">
+<meta name="msapplication-TileColor" content="#FFFFFF">
+<meta name="msapplication-TileImage" content="favicon/favicon-144.png">
+<meta name="msapplication-config" content="favicon/browserconfig.xml">
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script>
+  $( function() {
+  $( ".accordion" ).accordion({
+      heightStyle: "content",
+      active: false,
+      collapsible: true
+    });
+  } );
+</script>
+
+<script>
+  <!-- search menu pop-up --->
+  $(function() {
+    function slideToggle() {
+      $("#search-box").toggle("slide", 500);
+  };
+  $("#search-icon").on("click", function() {
+  slideToggle();
+  });
+  });
+</script>
+
+
+<!-- add  Algolia DocSearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="00-before-we-start.html">Before we start</a>
+</li>
+<li>
+  <a href="01-intro-to-r.html">Intro to R</a>
+</li>
+<li>
+  <a href="02-starting-with-data.html">Starting with data</a>
+</li>
+<li>
+  <a href="03-dplyr.html">Manipulating data frames</a>
+</li>
+<li>
+  <a href="04-visualization-ggplot2.html">Visualizing data</a>
+</li>
+<li>
+  <a href="05-r-and-databases.html">R and SQL</a>
+</li>
+<li>
+  <a href="code-handout.R">Code Handout</a>
+</li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+	<li class="search">
+	  <input id="search-box" type="text"  placeholder="Search...">
+	  <input type="submit">
+	</li>
+	<li class="search">
+	  <span id ="search-icon"><i class="fa fa-search fa-lg"></i></span>
+	</li>
+        <li>
+	  <a href="https://github.com/datacarpentry/R-ecology-lesson">
+	    <span class="fa fa-github fa-lg"></span>
+	  </a>
+	</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Manipulating, analyzing and exporting data with tidyverse</h1>
+<h4 class="author"><em>Data Carpentry contributors</em></h4>
+
+</div>
+
+
+<div id="manipulating-and-analyzing-data-with-dplyr" class="section level3">
+<h3>Manipulating and analyzing data with dplyr</h3>
+<p>Kia ora</p>
+<p>– last time we learned about data frames, and tricky stuff like strings and factors</p>
+<p>– in this session we are going to learn about a couple of packages within the tidyverse that make it easier to pull things we are interested in out of data frames, as well as doing manipulations directly on this data</p>
+<p>– Start up R studio, red sticky if any issues</p>
+<p>– Link to class etherpad is up on whiteboard</p>
+<p>– In it is the link to today’s lesson if you want to revisit it</p>
+<p>– Feel free to leave feedback in it: I get better at teaching based on feedback</p>
+<p>– I’ll also put all the code I write today in the etherpad so I think you’ll get most out of following along and trying to do the code rather than taking notes</p>
+<hr />
+<blockquote>
+<h3 id="learning-objectives">Learning Objectives</h3>
+<ul>
+<li>We are specifically going to cover using dplyr to select columns and rows we are interested in</li>
+<li>How to use pipes to whiz our data from one fuction to another</li>
+<li>how to add new columns based on doing stuff to existing columns</li>
+<li>how to split our data up, do stuff, and then summarize the output so we can get combined summary statistics and few other technical bits and pieces</li>
+</ul>
+</blockquote>
+<hr />
+</div>
+<div id="data-manipulation-using-dplyr-and-tidyr" class="section level1">
+<h1>Data Manipulation using <strong><code>dplyr</code></strong> and <strong><code>tidyr</code></strong></h1>
+<p>Packages in R are basically sets of additional functions that let you do more stuff.</p>
+<p>So far we’ve been using functions built into R</p>
+<p>packages give you access to more of them.</p>
+<p>To start off load the package tidyverse:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Before you use a package the first time you need to install it
+<span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)
+
+## then load the tidyverse packages, incl. dplyr
+<span class="kw">library</span>(<span class="st">&quot;tidyverse&quot;</span>)
+
+<span class="co"># Next time you go to R, you don&#39;t have to do </span>
+<span class="co"># install.packages step</span></code></pre></div>
+<p>Tidyverse is an “umbrella-package” that installs several packages useful for data analysis which work together well such as <strong><code>tidyr</code></strong>, <strong><code>dplyr</code></strong>, and <strong><code>ggplot2</code></strong></p>
+<p><strong><code>tidyverse</code></strong> tries to address 3 common issues 1. The results from a base R function sometimes depend on the type of data. 2. Using R expressions in a non standard way can be confusing for new learners. 3. Hidden arguments, having default operations that new learners are not aware of.</p>
+<p>One big example of this is how we had to set <strong><code>stringsAsFactors</code></strong> to <strong><code>FALSE</code></strong> to avoid our data being coerced/forced this hidden argument to convert our data type.</p>
+<p>This time will use the <strong><code>tidyverse</code></strong> package to read the data and avoid having to set <strong><code>stringsAsFactors</code></strong> to <strong><code>FALSE</code></strong></p>
+<p>We’ll read in our data using the <code>read_csv()</code> function, from the tidyverse package <strong><code>readr</code></strong>, instead of <code>read.csv()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># read_csv is part of the tidyverse package readr</span>
+<span class="co"># compared to read.csv that we&#39;ve already seen</span>
+surveys &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/portal_data_joined.csv&quot;</span>)</code></pre></div>
+<pre><code>#&gt; Parsed with column specification:
+#&gt; cols(
+#&gt;   record_id = col_integer(),
+#&gt;   month = col_integer(),
+#&gt;   day = col_integer(),
+#&gt;   year = col_integer(),
+#&gt;   plot_id = col_integer(),
+#&gt;   species_id = col_character(),
+#&gt;   sex = col_character(),
+#&gt;   hindfoot_length = col_integer(),
+#&gt;   weight = col_integer(),
+#&gt;   genus = col_character(),
+#&gt;   species = col_character(),
+#&gt;   taxa = col_character(),
+#&gt;   plot_type = col_character()
+#&gt; )</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## inspect the data
+<span class="kw">str</span>(surveys)
+
+## preview the data
+<span class="co"># View(surveys)</span></code></pre></div>
+<p>Notice that the class of the data is now <code>tbl_df</code></p>
+<p>This is referred to as a “tibble”. Tibbles are very similar to a data frame. For our purposes the only differences are that:</p>
+<ol style="list-style-type: decimal">
+<li>It displays the data type of each column under its name, it only prints the first few rows of data and only as many columns as fit on one screen.</li>
+<li>Columns of class <code>character</code> are never converted into factors.</li>
+</ol>
+<p>STICKIES</p>
+<p>In a moment we are going to get in to the most common functions we use with the tidyverse package dplyr, but first…</p>
+<div id="what-are-dplyr-and-tidyr" class="section level2">
+<h2>What are <strong><code>dplyr</code></strong> and <strong><code>tidyr</code></strong>?</h2>
+<p><strong><code>dplyr</code></strong> is a package for making tabular data manipulation easier than using the subsetting we talked about previously.</p>
+<p>It pairs nicely with <strong><code>tidyr</code></strong> which enables you to swiftly reshape your data for plotting and use by different R functions. Sometimes we want data sets where we have one row per measurement. Sometimes we want a data frame rows are clumps of measurements like plots or species.</p>
+<p>To learn more about <strong><code>dplyr</code></strong> and <strong><code>tidyr</code></strong> after the workshop, you may want to check out this <a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">handy data transformation with <strong><code>dplyr</code></strong> cheatsheet</a> and this <a href="https://github.com/rstudio/cheatsheets/raw/master/data-import.pdf">one about <strong><code>tidyr</code></strong></a>.</p>
+<p>We’re going to learn some of the most common <strong><code>dplyr</code></strong> functions:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#subset columns. seleCt (c = columns)</span>
+<span class="kw">select</span>()
+<span class="co"># subset rows on conditions. filteR (r = rows)</span>
+<span class="kw">filter</span>()
+<span class="co">#create new columns by using information from other columns</span>
+<span class="kw">mutate</span>()
+<span class="co">#create summary statisitcs on grouped data</span>
+<span class="kw">group_by</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarize</span>() <span class="co"># I&#39;ll explain the crazy %&gt;% thing in a minute</span>
+<span class="co"># sort results</span>
+<span class="kw">arrange</span>()
+<span class="co"># count discrete values</span>
+<span class="kw">count</span>()</code></pre></div>
+<p>STICKIES</p>
+</div>
+<div id="selecting-columns-and-filtering-rows" class="section level2">
+<h2>Selecting columns and filtering rows</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#To select columns of a data frame, use `select()`</span>
+<span class="co"># First argument is the data frame (`surveys`)</span>
+<span class="co"># subsequent arguments are the columns to keep.</span>
+<span class="kw">select</span>(surveys, plot_id, species_id, weight)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># To select all columns *except* certain ones, put a # &quot;-&quot; in front of the variable to exclude it.</span>
+<span class="kw">select</span>(surveys, <span class="op">-</span>record_id, <span class="op">-</span>species_id)</code></pre></div>
+<p>If we want to pull out ROWS we are interested in, we use <code>filter()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Pulling out rows</span>
+<span class="kw">filter</span>(surveys, year <span class="op">==</span><span class="st"> </span><span class="dv">1995</span>)</code></pre></div>
+<p>Boom folks, that’s the first three learning objectives - describing what dplyr and tidyr are useful for - selecting columns using select - selecting rows using filter</p>
+<p>STICKIES</p>
+</div>
+<div id="pipes" class="section level2">
+<h2>Pipes</h2>
+<p>What if you want to get a subset of both rows and columns we can do this in 3 ways</p>
+<ol style="list-style-type: decimal">
+<li><p>using intermediate steps</p></li>
+<li><p>nested functions</p></li>
+<li><p>pipes</p></li>
+</ol>
+<p>What if you want to select and filter the same dataset? There are three ways to do this: use intermediate steps, nested functions, or pipes.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## How to select and filter the same data set
+
+<span class="co"># 1. With intermediate steps, you create a temporary data frame and use</span>
+<span class="co"># that as input to the next function, like this:</span>
+
+surveys2 &lt;-<span class="st"> </span><span class="kw">filter</span>(surveys, weight <span class="op">&lt;</span><span class="st"> </span><span class="dv">5</span>)
+surveys_sml &lt;-<span class="st"> </span><span class="kw">select</span>(surveys2, species_id, sex, weight)</code></pre></div>
+<p>Nothing wrong with this but it creates a lot of objects that can be tricky to keep track of</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#2. You can also nest functions (i.e. one function inside of another), like this:</span>
+
+<span class="co"># Rewrite surveys_sml, but replace surveys2 in it</span>
+surveys_sml &lt;-<span class="st"> </span><span class="kw">select</span>(<span class="kw">filter</span>(surveys, weight <span class="op">&lt;</span><span class="st"> </span><span class="dv">5</span>), species_id, sex, weight)</code></pre></div>
+<p>This works kind of like BEDMAS - you do the innermost functions first</p>
+<p>However with a ton of different manipulations this gets tricky because it can be hard to work out the order to do things</p>
+<p>The last option, <em>pipes</em> let you take the output of one function and shoot it directly to the next.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#3. Use pipes to shoot the output of one function to another</span>
+<span class="co"># a &quot;pipe&quot; looks like %&gt;%  (the shortcut is shift+ctrl+m in win and shift+cmd+m in a mac)</span>
+
+surveys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(weight <span class="op">&lt;</span><span class="st"> </span><span class="dv">5</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(species_id, sex, weight)
+
+<span class="co"># Since `%&gt;%` takes the object on its left and passes it as the first argument to the </span>
+<span class="co"># function on its right, we don&#39;t need to explicitly include the data frame as an </span>
+<span class="co"># argument</span></code></pre></div>
+<p>You might find it helpful to think of %&gt;% as “then”</p>
+<p>For instance in this example we took the data frame <code>surveys</code>, <em>then</em> we <code>filter</code>ed for rows with <code>weight &lt; 5</code>, <em>then</em> we <code>select</code>ed columns <code>species_id</code>, <code>sex</code>, and <code>weight</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#If we want to save our output we need to assign it to an object</span>
+surveys_sml &lt;-<span class="st"> </span>surveys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(weight <span class="op">&lt;</span><span class="st"> </span><span class="dv">5</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(species_id, sex, weight)
+
+surveys_sml</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Challenge {.challenge}
+<span class="co"># Using pipes, subset the `surveys` data to include animals collected before</span>
+<span class="co"># 1995 and retain only the columns `year`, `sex`, and `weight`.</span></code></pre></div>
+<div class="accordion">
+<h3 class="toc-ignore">
+Answer
+</h3>
+<div style="background: #fff;">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surveys <span class="op">%&gt;%</span>
+<span class="st">     </span><span class="kw">filter</span>(year <span class="op">&lt;</span><span class="st"> </span><span class="dv">1995</span>) <span class="op">%&gt;%</span>
+<span class="st">     </span><span class="kw">select</span>(year, sex, weight)</code></pre></div>
+</div>
+</div>
+<p>STICKIES</p>
+<div id="mutate" class="section level3">
+<h3>Mutate</h3>
+<p>Sometimes we are going to want to create new columns based on info in existing columns</p>
+<p>In the tidyverse we do this by using mutate</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># To create a new column of weight in kg</span>
+surveys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">weight_kg =</span> weight <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>)</code></pre></div>
+<p>When we do this you can see in the tibble summary a new column called weight_kg</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># You can also create a second new column based on the first new column within the same # call of `mutate()`:</span>
+surveys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">weight_kg =</span> weight <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>,
+         <span class="dt">weight_kg2 =</span> weight_kg <span class="op">*</span><span class="st"> </span><span class="dv">2</span>)</code></pre></div>
+<p>If you don’t want to see all the rows you could pipe it to<code>head()</code>. Even though head() is not a dplyr function, as long as the <strong><code>dplyr</code></strong> or <code>magrittr</code> package is loaded you an use pipes</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surveys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">weight_kg =</span> weight <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>()</code></pre></div>
+<p>If we want we could filter out the NAs</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Filtering out NAs. You might remember ! = is NOT so !is.na means &quot;is not NA&quot;</span>
+surveys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(weight)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">weight_kg =</span> weight <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>()</code></pre></div>
+</div>
+<div id="challenge" class="section level3 challenge">
+<h3>Challenge</h3>
+</div>
+</div>
+</div>
+<div id="create-a-new-data-frame-from-the-surveys-data-that-meets-the-following-criteria" class="section level1">
+<h1>Create a new data frame from the <code>surveys</code> data that meets the following criteria:</h1>
+</div>
+<div id="only-has-the-species_id-column-and-a-new-column-called-hindfoot_half" class="section level1">
+<h1>– only has the <code>species_id</code> column and a new column called <code>hindfoot_half</code></h1>
+</div>
+<div id="hindfoot_half-contains-values-that-are-half-the-hindfoot_length-values." class="section level1">
+<h1>– hindfoot_half contains values that are half the <code>hindfoot_length</code> values.</h1>
+</div>
+<div id="also-in-this-hindfoot_half-column-there-are-no-nas-and-all-values-are-less" class="section level1">
+<h1>– Also, in this <code>hindfoot_half</code> column, there are no <code>NA</code>s and all values are less</h1>
+</div>
+<div id="than-30." class="section level1">
+<h1>than 30.</h1>
+<p><strong>Hint</strong>: think about how the commands should be ordered to produce this data frame!</p>
+<div class="accordion">
+<h3 class="toc-ignore">
+Answer
+</h3>
+<div style="background: #fff;">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surveys_hindfoot_half &lt;-<span class="st"> </span>surveys <span class="op">%&gt;%</span>
+<span class="st">     </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(hindfoot_length)) <span class="op">%&gt;%</span>
+<span class="st">     </span><span class="kw">mutate</span>(<span class="dt">hindfoot_half =</span> hindfoot_length <span class="op">/</span><span class="st"> </span><span class="dv">2</span>) <span class="op">%&gt;%</span>
+<span class="st">     </span><span class="kw">filter</span>(hindfoot_half <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>) <span class="op">%&gt;%</span>
+<span class="st">     </span><span class="kw">select</span>(species_id, hindfoot_half)</code></pre></div>
+</div>
+</div>
+<p>Congrats guys - you’ve knocked another two learning objectives off</p>
+<p>– you’ve learned about pippes AND creating new columns using mutate</p>
+<div id="split-apply-combine-data-analysis-and-the-summarize-function" class="section level3">
+<h3>Split-apply-combine data analysis and the summarize() function</h3>
+<p>Our next section is going to show a common approach where we split data into groups, analyses them, and then smush results back together</p>
+<p>We’ll do this using dplyr’s group_by function and summarie function</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># group_by() specifies the column names that you want to calculate summary statistics</span>
+<span class="co"># summarize() collapses each group into a single-row summary (UK spelling works too)</span>
+surveys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(sex) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean_weight =</span> <span class="kw">mean</span>(weight, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<p>group_by = what do you want to calculate stats for? summarize = what stuff do you want calculated?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># You can also group by multiple columns:</span>
+surveys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(sex, species_id) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean_weight =</span> <span class="kw">mean</span>(weight, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<p>If you want to display more data,</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#You can use the `print()` function at the end of your chain with the argument `n` # specifying the number of lines</span>
+surveys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(sex, species_id) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean_weight =</span> <span class="kw">mean</span>(weight, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">print</span>(<span class="dt">n =</span> <span class="dv">15</span>)
+
+<span class="co"># Repeat with n = 24, n = 72</span></code></pre></div>
+<p>OK so this isinteresting- even though we used na.rm, we still have NAN in these columns</p>
+<p>The problem is that when we grouped by species_id and sex some of these combos don’t have any any animals with weight info, so they have to return NaNs</p>
+<p>To avoid this, we can remove the missing values for weight before we attempt to calculate the summary statistics on weight. Because the missing values are removed first, we can omit <code>na.rm = TRUE</code> when computing the mean:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surveys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(weight)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(sex, species_id) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean_weight =</span> <span class="kw">mean</span>(weight))</code></pre></div>
+<p>You can also summarize multiple variables at the same time (and not necessarily on the same variable). For instance, we could add a column indicating the minimum weight for each species for each sex:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># You can summarize multiple variables at the same time (mean_weight, min_weight)</span>
+surveys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(weight)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(sex, species_id) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean_weight =</span> <span class="kw">mean</span>(weight),
+            <span class="dt">min_weight =</span> <span class="kw">min</span>(weight))</code></pre></div>
+<p>We can also sort the result of a query to inspect the values using arrange(). For instance, we can sort on <code>min_weight</code> to put the lighter species first:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Using arrange to sort from smaller min weights to bigger min weights</span>
+surveys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(weight)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(sex, species_id) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean_weight =</span> <span class="kw">mean</span>(weight),
+            <span class="dt">min_weight =</span> <span class="kw">min</span>(weight)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(min_weight)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># To sort in descending order, we need to add the `desc()` function. </span>
+<span class="co"># If we want to sort the results by decreasing order of mean weight:</span>
+surveys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(weight)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(sex, species_id) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean_weight =</span> <span class="kw">mean</span>(weight),
+            <span class="dt">min_weight =</span> <span class="kw">min</span>(weight)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(mean_weight))</code></pre></div>
+<div id="counting" class="section level4">
+<h4>Counting</h4>
+<p>When working with data, we often want to know the number of observations for each factor or combination of factors. To do this wel’ll use dplyr’s count() function</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># To count number of rows of data for each sex</span>
+surveys <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">count</span>(sex) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># count() also has a  `sort` argument:  </span>
+surveys <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">count</span>(sex, <span class="dt">sort =</span> <span class="ot">TRUE</span>) </code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Can also count *combination of factors*, such as `sex` and `species`, </span>
+surveys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(sex, species) </code></pre></div>
+<p>If youdon’t want to sort according to your count you can use arrange() to sort the table according to other stuff.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># e.g. to arrange the table above in (i) an alphabetical order of the levels of the </span>
+<span class="co"># species and (ii) in descending order of the count:</span>
+
+surveys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(sex, species) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">arrange</span>(species, <span class="kw">desc</span>(n))</code></pre></div>
+<p>STICKIES</p>
+</div>
+</div>
+<div id="challenge-1" class="section level3 challenge">
+<h3>Challenge</h3>
+</div>
+</div>
+<div id="how-many-animals-were-caught-in-each-plot_type-surveyed" class="section level1">
+<h1>1. How many animals were caught in each <code>plot_type</code> surveyed?</h1>
+<div class="accordion">
+<h3 class="toc-ignore">
+Answer
+</h3>
+<div style="background: #fff;">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surveys <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">count</span>(plot_type) </code></pre></div>
+</div>
+</div>
+</div>
+<div id="use-group_by-and-summarize-to-find-the-mean-min-and-max-hindfoot" class="section level1">
+<h1>2. Use <code>group_by()</code> and <code>summarize()</code> to find the mean, min, and max hindfoot</h1>
+</div>
+<div id="length-for-each-species-using-species_id.-also-add-the-number-of" class="section level1">
+<h1>length for each species (using <code>species_id</code>). Also add the number of</h1>
+</div>
+<div id="observations-hint-see-n." class="section level1">
+<h1>observations (hint: see <code>?n</code>).</h1>
+<div class="accordion">
+<h3 class="toc-ignore">
+Answer
+</h3>
+<div style="background: #fff;">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> surveys <span class="op">%&gt;%</span>
+<span class="st">     </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(hindfoot_length)) <span class="op">%&gt;%</span>
+<span class="st">     </span><span class="kw">group_by</span>(species_id) <span class="op">%&gt;%</span>
+<span class="st">     </span><span class="kw">summarize</span>(
+         <span class="dt">mean_hindfoot_length =</span> <span class="kw">mean</span>(hindfoot_length),
+         <span class="dt">min_hindfoot_length =</span> <span class="kw">min</span>(hindfoot_length),
+         <span class="dt">max_hindfoot_length =</span> <span class="kw">max</span>(hindfoot_length),
+         <span class="dt">n =</span> <span class="kw">n</span>()
+     )</code></pre></div>
+</div>
+</div>
+</div>
+<div id="what-was-the-heaviest-animal-measured-in-each-year-return-the-columns-year" class="section level1">
+<h1>3. What was the heaviest animal measured in each year? Return the columns <code>year</code>,</h1>
+</div>
+<div id="genus-species_id-and-weight." class="section level1">
+<h1><code>genus</code>, <code>species_id</code>, and <code>weight</code>.</h1>
+<div class="accordion">
+<h3 class="toc-ignore">
+Answer
+</h3>
+<div style="background: #fff;">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surveys <span class="op">%&gt;%</span>
+<span class="st">     </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(weight)) <span class="op">%&gt;%</span>
+<span class="st">     </span><span class="kw">group_by</span>(year) <span class="op">%&gt;%</span>
+<span class="st">     </span><span class="kw">filter</span>(weight <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(weight)) <span class="op">%&gt;%</span>
+<span class="st">     </span><span class="kw">select</span>(year, genus, species, weight) <span class="op">%&gt;%</span>
+<span class="st">     </span><span class="kw">arrange</span>(year)</code></pre></div>
+</div>
+</div>
+<p>Alright guys, we’ve covered 2 more learning objectives, only 4 mre to go! You now know about the split-apply-combine concept and how to get summaries for groups of yoru data.</p>
+<div id="reshaping-with-gather-and-spread" class="section level3">
+<h3>Reshaping with gather and spread</h3>
+<p>Now we are going to switch gears and use functions provided by tidyr to reshape our data while still following the “tidy data rules” we learned back in the spreadsheet session 1. Each variable has its own column 2. Each observation has its own row 3. Each value must have its own cell 4. Each type of observational unit forms a table</p>
+<p>Here we examine the fourth rule: Each type of observational unit forms a table.</p>
+<p>In <code>surveys</code> , the rows of <code>surveys</code> are records, and columns are values such the weight or sex of each animal associated with each record.</p>
+<p>If we wanted to compare the different mean weight of each species between plots to follow these rules we’d need to create a new table where each row is the plot, species would become the names of column variables and the cells would contain the values of the mean weight observed on each plot.</p>
+<p>The key point here is that we are still following a tidy data structure i.e. a rectangle, but we have <strong>reshaped</strong> the data</p>
+<p>The opposite transformation would be to transform column names into values of a variable.</p>
+<p>We can do both these of transformations with two <code>tidyr</code> functions, <code>spread()</code> and <code>gather()</code>.</p>
+<div id="spreading" class="section level4">
+<h4>Spreading</h4>
+<p><code>spread()</code> takes three principal arguments:</p>
+<ol style="list-style-type: decimal">
+<li>the data</li>
+<li>the <em>key</em> column variable whose values will become new column names.<br />
+</li>
+<li>the <em>value</em> column variable whose values will fill the new column variables.</li>
+</ol>
+<p>Further arguments include <code>fill</code> which, if set, fills in missing values with the value provided.</p>
+<p>Let’s use <code>spread()</code> to transform surveys to find the mean weight of each species in each plot over the entire survey period. We use <code>filter()</code>, <code>group_by()</code> and <code>summarise()</code> to filter our observations and variables of interest, and create a new variable for the <code>mean_weight</code>. We use the pipe as before too.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surveys_gw &lt;-<span class="st"> </span>surveys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(weight)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(genus, plot_id) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean_weight =</span> <span class="kw">mean</span>(weight))
+
+<span class="kw">str</span>(surveys_gw)</code></pre></div>
+<p>This yields <code>surveys_gw</code> where the observations for each plot are spread across multiple rows, 196 observations of 13 variables. Using <code>spread()</code> to key on <code>genus</code> with values from <code>mean_weight</code> this becomes 24 observations of 11 variables, one row for each plot. We again use pipes:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surveys_spread &lt;-<span class="st"> </span>surveys_gw <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">spread</span>(<span class="dt">key =</span> genus, <span class="dt">value =</span> mean_weight)
+
+<span class="kw">str</span>(surveys_spread)</code></pre></div>
+<div class="figure">
+<img src="img/spread_data_R.png" />
+
+</div>
+<p>We could now plot comparisons between the weight of species in different plots, although we may wish to fill in the missing values first.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surveys_gw <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">spread</span>(genus, mean_weight, <span class="dt">fill =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>()</code></pre></div>
+</div>
+<div id="gathering" class="section level4">
+<h4>Gathering</h4>
+<p>The opposing situation could occur if we had been provided with data in the form of <code>surveys_spread</code>, where the genus names are column names, but we wish to treat them as values of a genus variable instead.</p>
+<p>In this situation we are gathering the column names and turning them into a pair of new variables. One variable represents the column names as values, and the other variable contains the values previously associated with the column names.</p>
+<p><code>gather()</code> takes four principal arguments:</p>
+<ol style="list-style-type: decimal">
+<li>the data</li>
+<li>the <em>key</em> column variable we wish to create from column names.</li>
+<li>the <em>values</em> column variable we wish to create and fill with values associated with the key.</li>
+<li>the names of the columns we use to fill the key variable (or to drop).</li>
+</ol>
+<p>To recreate <code>surveys_gw</code> from <code>surveys_spread</code> we would create a key called <code>genus</code> and value called <code>mean_weight</code> and use all columns except <code>plot_id</code> for the key variable. Here we drop <code>plot_id</code> column with a minus sign.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surveys_gather &lt;-<span class="st"> </span>surveys_spread <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> genus, <span class="dt">value =</span> mean_weight, <span class="op">-</span>plot_id)
+
+<span class="kw">str</span>(surveys_gather)</code></pre></div>
+<div class="figure">
+<img src="img/gather_data_R.png" />
+
+</div>
+<p>Note that now the <code>NA</code> genera are included in the re-gathered format. Spreading and then gathering can be a useful way to balance out a dataset so every replicate has the same composition.</p>
+<p>We could also have used a specification for what columns to include. This can be useful if you have a large number of identifying columns, and it’s easier to specify what to gather than what to leave alone. And if the columns are in a row, we don’t even need to list them all out - just use the <code>:</code> operator!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surveys_spread <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> genus, <span class="dt">value =</span> mean_weight, Baiomys<span class="op">:</span>Spermophilus) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">head</span>()</code></pre></div>
+<blockquote>
+<h3 id="challenge-2" class="challenge">Challenge</h3>
+<ol style="list-style-type: decimal">
+<li>Spread the <code>surveys</code> data frame with <code>year</code> as columns, <code>plot_id</code> as rows, and the number of genera per plot as the values. You will need to summarize before reshaping, and use the function <code>n_distinct()</code> to get the number of unique genera within a particular chunk of data. It’s a powerful function! See <code>?n_distinct</code> for more.</li>
+</ol>
+<div class="accordion">
+<h3 class="toc-ignore">
+Answer
+</h3>
+<div style="background: #fff;">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rich_time &lt;-<span class="st"> </span>surveys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(plot_id, year) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">n_genera =</span> <span class="kw">n_distinct</span>(genus)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">spread</span>(year, n_genera)
+
+<span class="kw">head</span>(rich_time)</code></pre></div>
+</div>
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li>Now take that data frame and <code>gather()</code> it again, so each row is a unique <code>plot_id</code> by <code>year</code> combination.</li>
+</ol>
+<div class="accordion">
+<h3 class="toc-ignore">
+Answer
+</h3>
+<div style="background: #fff;">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rich_time <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(year, n_genera, <span class="op">-</span>plot_id)</code></pre></div>
+</div>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li>The <code>surveys</code> data set has two measurement columns: <code>hindfoot_length</code> and <code>weight</code>. This makes it difficult to do things like look at the relationship between mean values of each measurement per year in different plot types. Let’s walk through a common solution for this type of problem. First, use <code>gather()</code> to create a dataset where we have a key column called <code>measurement</code> and a <code>value</code> column that takes on the value of either <code>hindfoot_length</code> or <code>weight</code>. <em>Hint</em>: You’ll need to specify which columns are being gathered.</li>
+</ol>
+<div class="accordion">
+<h3 class="toc-ignore">
+Answer
+</h3>
+<div style="background: #fff;">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surveys_long &lt;-<span class="st"> </span>surveys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(measurement, value, hindfoot_length, weight)</code></pre></div>
+</div>
+</div>
+<ol start="4" style="list-style-type: decimal">
+<li>With this new data set, calculate the average of each <code>measurement</code> in each <code>year</code> for each different <code>plot_type</code>. Then <code>spread()</code> them into a data set with a column for <code>hindfoot_length</code> and <code>weight</code>. <em>Hint</em>: You only need to specify the key and value columns for <code>spread()</code>.</li>
+</ol>
+<div class="accordion">
+<h3 class="toc-ignore">
+Answer
+</h3>
+<div style="background: #fff;">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surveys_long <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(year, measurement, plot_type) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean_value =</span> <span class="kw">mean</span>(value, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">spread</span>(measurement, mean_value)</code></pre></div>
+</div>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div id="exporting-data" class="section level1">
+<h1>Exporting data</h1>
+<p>Now that you have learned how to use <strong><code>dplyr</code></strong> to extract information from or summarize your raw data, you may want to export these new data sets to share them with your collaborators or for archival.</p>
+<p>Similar to the <code>read_csv()</code> function used for reading CSV files into R, there is a <code>write_csv()</code> function that generates CSV files from data frames.</p>
+<p>Before using <code>write_csv()</code>, we are going to create a new folder, <code>data_output</code>, in our working directory that will store this generated dataset. We don’t want to write generated datasets in the same directory as our raw data. It’s good practice to keep them separate. The <code>data</code> folder should only contain the raw, unaltered data, and should be left alone to make sure we don’t delete or modify it. In contrast, our script will generate the contents of the <code>data_output</code> directory, so even if the files it contains are deleted, we can always re-generate them.</p>
+<p>In preparation for our next lesson on plotting, we are going to prepare a cleaned up version of the data set that doesn’t include any missing data.</p>
+<p>Let’s start by removing observations of animals for which <code>weight</code> and <code>hindfoot_length</code> are missing, or the <code>sex</code> has not been determined:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">surveys_complete &lt;-<span class="st"> </span>surveys <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(weight),           <span class="co"># remove missing weight</span>
+         <span class="op">!</span><span class="kw">is.na</span>(hindfoot_length),  <span class="co"># remove missing hindfoot_length</span>
+         <span class="op">!</span><span class="kw">is.na</span>(sex))                <span class="co"># remove missing sex</span></code></pre></div>
+<p>Because we are interested in plotting how species abundances have changed through time, we are also going to remove observations for rare species (i.e., that have been observed less than 50 times). We will do this in two steps: first we are going to create a data set that counts how often each species has been observed, and filter out the rare species; then, we will extract only the observations for these more common species:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Extract the most common species_id
+species_counts &lt;-<span class="st"> </span>surveys_complete <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">count</span>(species_id) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">filter</span>(n <span class="op">&gt;=</span><span class="st"> </span><span class="dv">50</span>)
+
+## Only keep the most common species
+surveys_complete &lt;-<span class="st"> </span>surveys_complete <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(species_id <span class="op">%in%</span><span class="st"> </span>species_counts<span class="op">$</span>species_id)</code></pre></div>
+<p>To make sure that everyone has the same data set, check that <code>surveys_complete</code> has 30463 rows and 13 columns by typing <code>dim(surveys_complete)</code>.</p>
+<p>Now that our data set is ready, we can save it as a CSV file in our <code>data_output</code> folder.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">write_csv</span>(surveys_complete, <span class="dt">path =</span> <span class="st">&quot;data_output/surveys_complete.csv&quot;</span>)</code></pre></div>
+<p style="text-align: right; font-size: small;">
+Page built on: <U+0001F4C6> 2018-11-14 <U+2012> <U+0001F562> 09:06:30
+</p>
+</div>
+
+<hr/>
+
+<p><a href="http://datacarpentry.org/">Data Carpentry</a>,
+  2018. <a href="LICENSE.html">License</a>. <a href="CONTRIBUTING.html">Contributing</a>. <br/>
+  Questions?  Feedback?
+  Please <a href="https://github.com/datacarpentry/R-ecology-lesson/issues/new">file
+  an issue on GitHub</a>. <br/> On
+  Twitter: <a href="https://twitter.com/datacarpentry">@datacarpentry</a></p>
+
+<!--  Algolia DocSearch -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+ apiKey: '4c64cef535ab2b7c8d1b73ed13f283e1',
+ indexName: 'datacarpentry',
+ inputSelector: '#search-box',
+ debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

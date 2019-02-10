@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Data Carpentry contributors" />
+
+
+<title>Before we start</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link rel="shortcut icon" href="favicon/favicon.ico">
+<link rel="icon" sizes="16x16 32x32 64x64" href="favicon/favicon.ico">
+<link rel="icon" type="image/png" sizes="196x196" href="favicon/favicon-192.png">
+<link rel="icon" type="image/png" sizes="160x160" href="favicon/favicon-160.png">
+<link rel="icon" type="image/png" sizes="96x96" href="favicon/favicon-96.png">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16.png">
+<link rel="apple-touch-icon" href="favicon/favicon-57.png">
+<link rel="apple-touch-icon" sizes="114x114" href="favicon/favicon-114.png">
+<link rel="apple-touch-icon" sizes="72x72" href="favicon/favicon-72.png">
+<link rel="apple-touch-icon" sizes="144x144" href="favicon/favicon-144.png">
+<link rel="apple-touch-icon" sizes="60x60" href="favicon/favicon-60.png">
+<link rel="apple-touch-icon" sizes="120x120" href="favicon/favicon-120.png">
+<link rel="apple-touch-icon" sizes="76x76" href="favicon/favicon-76.png">
+<link rel="apple-touch-icon" sizes="152x152" href="favicon/favicon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/favicon-180.png">
+<meta name="msapplication-TileColor" content="#FFFFFF">
+<meta name="msapplication-TileImage" content="favicon/favicon-144.png">
+<meta name="msapplication-config" content="favicon/browserconfig.xml">
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script>
+  $( function() {
+  $( ".accordion" ).accordion({
+      heightStyle: "content",
+      active: false,
+      collapsible: true
+    });
+  } );
+</script>
+
+<script>
+  <!-- search menu pop-up --->
+  $(function() {
+    function slideToggle() {
+      $("#search-box").toggle("slide", 500);
+  };
+  $("#search-icon").on("click", function() {
+  slideToggle();
+  });
+  });
+</script>
+
+
+<!-- add  Algolia DocSearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="00-before-we-start.html">Before we start</a>
+</li>
+<li>
+  <a href="01-intro-to-r.html">Intro to R</a>
+</li>
+<li>
+  <a href="02-starting-with-data.html">Starting with data</a>
+</li>
+<li>
+  <a href="03-dplyr.html">Manipulating data frames</a>
+</li>
+<li>
+  <a href="04-visualization-ggplot2.html">Visualizing data</a>
+</li>
+<li>
+  <a href="05-r-and-databases.html">R and SQL</a>
+</li>
+<li>
+  <a href="code-handout.R">Code Handout</a>
+</li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+	<li class="search">
+	  <input id="search-box" type="text"  placeholder="Search...">
+	  <input type="submit">
+	</li>
+	<li class="search">
+	  <span id ="search-icon"><i class="fa fa-search fa-lg"></i></span>
+	</li>
+        <li>
+	  <a href="https://github.com/datacarpentry/R-ecology-lesson">
+	    <span class="fa fa-github fa-lg"></span>
+	  </a>
+	</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Before we start</h1>
+<h4 class="author"><em>Data Carpentry contributors</em></h4>
+
+</div>
+
+
+<hr />
+<blockquote>
+<h2 id="rstudio-before-the-lesson-start-an-r-script-and-paste-these-learning-objectives-into-it">RSTUDIO## Before the lesson start an R script and paste these learning objectives into it:</h2>
+<h3 id="learning-objectives">Learning Objectives</h3>
+<ul>
+<li>Describe the purpose of the RStudio Script, Console, Environment, and Plots panes.</li>
+<li>Organize files and directories for a set of analyses as an R Project, and understand the purpose of the working directory.</li>
+<li>Use the built-in RStudio help interface to search for more information on R functions.</li>
+<li>Demonstrate how to provide sufficient information for troubleshooting with the R user community.</li>
+</ul>
+</blockquote>
+<p>And load the following into a browser tab: <img src="img/working-directory-structure.png" alt="Example of a working directory structure." /></p>
+<p>Kia ora folks and welcome to Introduction to R</p>
+<p>My name is Alana, and I’m going to be your instructor for this session. As helpers, we’ve also got the wonderful X, Y, Z.</p>
+<p>In the first part of this session, we are going to cover What R and RStudio is, some reasons for learning R, how to make our way around RStudio, how to get set up, how to interact with R, and how to learn more and get help after we are done here.</p>
+<p>So to kick off, can I please get you guys to attempt to open up R studio. If you haven’t got it installed or have any issues please throw up a red sticky note on your laptop and one of the helpers will come give you a hand.</p>
+<p>I’m going to switch over to Rstudio in a sec, but the first part of this lesson is mostly a bit of a talk fest, so if you’ve got Rstudio open, all good, but we’ve got plenty of time to get things up and running if you don’t - you can just follow along up on my screen.</p>
+<p>I’ve put the link to the class etherpad up on the whiteboard, and it as the link to this lesson up on it, in case you want to revisit anything we cover today. Also, please feel free to leave feedback in the etherpad on this lesson - us instructors get better based on you telling us what we can do better.</p>
+<p>For these lessons, I’m going to put any notes that I write in Rstudio up in the etherpad, so don’t worry about having to type down everything I type.</p>
+<hr />
+<div id="starting-off-what-is-r" class="section level2">
+<h2>Starting off, What is R?</h2>
+<p>“<code>R</code>” is both the program that sits under R studio, and the specific programming language that the program R understands. This double meaning can be a little confusing to begin with, but I promise it gets a little easier as you get used to working with and in R.</p>
+</div>
+<div id="what-is-rstudio" class="section level2">
+<h2>What is RStudio?</h2>
+<p>R studio is this thing! It is software buit around the program R, that allows you to easily write, test, and run scripts written in the language R.</p>
+</div>
+<div id="why-learn-r" class="section level2">
+<h2>Why learn R?</h2>
+<div id="r-does-not-involve-lots-of-pointing-and-clicking-and-thats-actually-a-good-thing" class="section level3">
+<h3>R does not involve lots of pointing and clicking, and that’s actually a good thing</h3>
+<p>It can take a little while to get used to R being script based, but the advantage is that you don’t need to remember the specific order you clicked on things while doing analyeses, because it is all written down.</p>
+<p>Because you’ve written down previous analyses, if you need to redo these analyses on new datasets you can just pop your new dataset in and go for it - you don’t have to remember the order of clicks you previously did.</p>
+<p>Working with scripts also makes it clearer for other folks trying to follow along your analyses rather than having to try and figure out the order you clicked in. This also allows them to more clearly see how they could improve your analyses and offer suggestions.</p>
+</div>
+<div id="r-code-is-great-for-reproducibility" class="section level3">
+<h3>R code is great for reproducibility</h3>
+<p>Reproducibility is when someone else (including your future self) can obtain the same results from the same dataset when using the same analysis.</p>
+<p>As an increasing number of journals and funding agencies expect analyses to be reproducible, knowing R will give you an edge with these requirements.</p>
+</div>
+<div id="r-is-interdisciplinary-and-extendible" class="section level3">
+<h3>R is interdisciplinary and extendible</h3>
+<p>On of the neat things about R is that it has over 10,000+ packages that can be installed to extend its capabilities, including image analysis, GIS, time series, population genetics, and a lot more.</p>
+</div>
+<div id="r-works-on-data-of-all-shapes-and-sizes" class="section level3">
+<h3>R works on data of all shapes and sizes</h3>
+<p>The skills you learn in R work whether your dataset has hundreds or millions of lines. It comes with functions that make handling of missing data and calculating stats convenient.</p>
+<p>It can also work with data stored in a bunch of different ways - R can connect to spreadsheets, databases, and other data types on both your computer and on the web.</p>
+</div>
+<div id="r-produces-high-quality-graphics" class="section level3">
+<h3>R produces high-quality graphics</h3>
+<p>The combinations of ways you can display your data on a plot are almost endless - these can take some tweaking to set up, but after that it is very easy to display new data in the same way.</p>
+</div>
+<div id="r-has-a-large-and-welcoming-community" class="section level3">
+<h3>R has a large and welcoming community</h3>
+<p>If you get stuck there is a community consisting of thousands of people willing to help you through mailing lists and websites such as <a href="https://stackoverflow.com/">Stack Overflow</a>, or the <a href="https://community.rstudio.com/">RStudio community</a>. Links to these sites are available at the online version of this lesson.</p>
+</div>
+<div id="not-only-is-r-free-but-it-is-also-open-source-and-cross-platform" class="section level3">
+<h3>Not only is R free, but it is also open-source and cross-platform</h3>
+<p>R is free, anyone can inspect the code and fix bugs, and it works well across platforms, including windows, mac and linux machines.</p>
+<p>Alright, for the next bit we are going to switch over to Rstudio so we can get a little more familiar with it. If you guys could open up your Rstudio so you can follow along, that would be aces. As always, if you get stuck at all, chuck a red stickie up and a helper will be along to give you a hand.</p>
+</div>
+<div id="open-r-studio" class="section level3">
+<h3>OPEN R STUDIO</h3>
+<p>OK, so this little R script I’ve got going in the top left has our learning objectives for today. If I write anything extra in this script other than the learning objectives - which are available online at the lesson link, then I’ll be putting it in the etherpad so don’t worry about copying this all down.</p>
+<p>Your R studio window might look a bit different to mine because you might not have anything pen in the script panel in the upper left here. To open a new R script, like I did to put the learning objectives in here, you just click this little drop down menu on the upper left and select R script.</p>
+<p>OK so let’s start getting some of our learning objectives out of the way</p>
+</div>
+</div>
+<div id="knowing-your-way-around-rstudio" class="section level2">
+<h2>Knowing your way around RStudio</h2>
+<p>Rstudio is software that makes it easier to work with R. We are going to use it to write code, navigate the files on our computer, create variables o save bits and pieces of our data and the calculations we do, and to visualize plots. RStudio can also be used for other things that you can learn about at ResBaz including version control, developing packages, writing Shiny apps.</p>
+<p>It’s a bit full on to look at so we’ll step through what all these panels do in a sec here, but One of the advantages of using RStudio is that all the information you need to write code is available in a single window. Additionally, there a bunch of things which make it easier to write code including shortcuts, autocompletion, and highlighting for which will make working in R easier and less error-prone.</p>
+<p>OK, time to get into the nuts and bolts. What are all these crazy windows here?</p>
+<p>The top left is the “Source” pane - this is where you can look at your scripts and documents</p>
+<p>The bottom left is the R console - this is where you can actually run stuff in R, and we’ll cover how to do this in the next part of the lesson.</p>
+<p>In the upper right we have the <strong>Environment/History</strong> pane - this shows the variables currently present in your R environment - we’ll cover how to make these in the next part of the lesson, and history - the commands you’ve previously run down in the R console.</p>
+<p>Finally in the lower right we have the <strong>Files/Plots/Packages/Help/Viewer</strong> pane. This has options for us to navigate between folders on our computer, see plots we’ve created, see what packages we have available, and get some help when we get stuck!</p>
+<p>And boom, just like that we’ve covered our first learning objective! TICK IT OFF</p>
+</div>
+<div id="getting-set-up" class="section level2">
+<h2>Getting set up</h2>
+<p>Next up we are going to set up a project for the analyses we are going to do later in this lesson, following data carpentry’s best pratices which means creating a set of folders like this:</p>
+</div>
+<div id="show-layout" class="section level1">
+<h1>SHOW LAYOUT</h1>
+<p>so all of the input and output for our project is in one master directory, the working directory.</p>
+<p>RStudio helps do this through its “Projects” interface. Please follow along with what I’m about to do and if you get stuck, stick up a red stickie.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Under the <code>File</code> menu, click on <code>New project</code>. Choose <code>New Directory</code>, then <code>New Project</code>.</li>
+<li>Enter a name for this new folder (or “directory”), and choose a convenient location for it. This will be your <strong>working directory</strong> for the rest of the R lessons day (e.g., <code>~/data-carpentry</code>).</li>
+<li>Click on <code>Create Project</code>.</li>
+</ol>
+<p>By having all the stuff we need in the one directory we can launch our analyses from within the working directory, and then use relative paths to point to where our inputs and outputs are (as opposed to absolute paths where we have to tell R what the full path is to our data). This means we can share the code for our project with other people as long as they have the same working folder structure on their computer. and it should still work.</p>
+<div id="organizing-your-working-directory" class="section level3">
+<h3>Organizing your working directory</h3>
+<p>OK, so what kind of subfolders do we need to make this amazing reproducibilty happen?</p>
+<p>the first folder we are going to create inside our working directory here is “data” We can create this folder using the ‘New Folder’ command on the files tab on the lower right here. If you get stuck on any of this, please stick up a red stickie.</p>
+<ul>
+<li><strong><code>data/</code></strong> is going to store our raw datasets. By storing the raw data, if we screw up in our analysis steps, we can always go back to our original data.</li>
+</ul>
+<p>Next, we are also going to create a <code>data_output/</code> for when we learn how to export data as CSV files,</p>
+<p>and finally we are going to create a <code>fig_output/</code> folder for the figures that we will save.</p>
+<p>For your own projects that you work on in the future, you might also think about a</p>
+<ul>
+<li><strong><code>documents/</code></strong> folder - This would be a place to keep outlines, drafts, and other text.</li>
+<li><strong><code>scripts/</code></strong> This would be the location to keep your R scripts for different analyses or plotting.</li>
+</ul>
+<p>We are going to keep the script in the root of our working directory because we are only going to use one file and it will make things easier.</p>
+<p>Your working directory should now look like mine - if not, you know the drill. Stick up a red stickie, and the helpers will give you a hand while I do a bit more of a talk fest to wrap up this first part of the lesson.</p>
+</div>
+<div id="the-working-directory" class="section level3">
+<h3>The working directory</h3>
+<p>The working directory is the place where R will be looking for and saving the files. When you write code for your project.</p>
+</div>
+<div id="in-the-script" class="section level3">
+<h3>IN THE SCRIPT</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># If you need to check your working directory (wd), you can use `getwd()`.</span>
+<span class="co"># To shoot commands from your script pane down to th console use Ctrl+Enter</span>
+<span class="kw">getwd</span>()</code></pre></div>
+<p>If you need to change your working directory you can navigate to it in using the files folder in the right pane here, and clicking on the ‘More’ blue gear icon.</p>
+</div>
+<div id="in-the-script-1" class="section level3">
+<h3>IN THE SCRIPT</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># As well as the blue gear option for changing a working directory (wd) you can use </span>
+<span class="co">#`setwd()</span>
+<span class="kw">setwd</span>(<span class="st">&quot;/path/to/working/directory&quot;</span>)</code></pre></div>
+<p>If we wanted to send this command down to the R console in the bottom pane we’d put our cursor on the same line and use Ctrl+Enter, but because my working directory is good, I’m not going to run this command right now.</p>
+<p>And with that, we can tick off our second learning objective: &gt; * Organize files and directories for a set of analyses as an R &gt; Project, and understand the purpose of the working directory.</p>
+<p>Moving on…</p>
+</div>
+<div id="interacting-with-r" class="section level2">
+<h2>Interacting with R</h2>
+<p>The basis of programming is that we write down instructions for the computer, known as commands <em>commands</em> and then we tell the computer to follow the instructions by <em>executing</em> (also called <em>running</em>) those commands.</p>
+<p>Although we can go straight down to te console window and type in commands there and hit enter to run them ### demonstrate with getwd()</p>
+<p>if we use the script window, we can save our commands for later and have a record of what we have run. We type the command in the script window, and then ctrl+enter to shoot them down to the console ### demonstrate with getwd()</p>
+<p>With either approach, the console window in the bottom left is where you’ll get output, and you can jump between the script and console windows using Ctrl+1 and Ctrl+2 ### demonstrate</p>
+<p>This is handy if you just want to check what a variable - more on them later - contains, without saving a record of doing this.</p>
+<p>If R is ready to accept commands, the R console shows a <code>&gt;</code> prompt like we can see here.</p>
+<p>If R is still waiting for you to enter more data because it isn’t complete yet, the console will show a <code>+</code> prompt. It means that you haven’t finished entering a complete command. This is generally because you have not ‘closed’ a parenthesis or quotation.</p>
+<p>When this happens, and you thought you finished typing your command, click inside the console window and press <kbd><code>Esc</code></kbd>; this will cancel the incomplete command and return you to the <code>&gt;</code> prompt.</p>
+</div>
+<div id="how-to-learn-more-after-the-workshop" class="section level2">
+<h2>How to learn more after the workshop?</h2>
+<p>What we are doing today is a taster of how to analyse R - it won’t give you the full picure, but we have ongoing R user group meetings during the year if you need additional help and motivation. Like any language - human or machine - it can take a little bit to get et fluent in it, but you’ll be conversational in no time.</p>
+</div>
+<div id="seeking-help" class="section level2">
+<h2>Seeking help</h2>
+<p>OK, so what about when you get stuck?</p>
+<div id="use-the-built-in-rstudio-help-interface-to-search-for-more-information-on-r-functions" class="section level3">
+<h3>Use the built-in RStudio help interface to search for more information on R functions</h3>
+</div>
+<div id="demonstrate-the-rstudio-help-interface" class="section level3">
+<h3>DEMONSTRATE THE RSTUDIO HELP INTERFACE</h3>
+<p>TYPE MEAN IN THE SEARCH WINDOW</p>
+</div>
+</div>
+</div>
+<div id="another-learning-objective-done" class="section level1">
+<h1>Another learning objective done</h1>
+<blockquote>
+<ul>
+<li>Use the built-in RStudio help interface to search for more information on R functions.</li>
+</ul>
+</blockquote>
+<div id="i-know-the-name-of-the-function-i-want-to-use-but-im-not-sure-how-to-use-it" class="section level3">
+<h3>I know the name of the function I want to use, but I’m not sure how to use it</h3>
+<p>There are also a number of other ways to get help: If you need help with a specific function, let’s say <code>barplot()</code>, you can type:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?barplot</code></pre></div>
+<p>If you just need to remind yourself of the names of the arguments, you can use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(lm)</code></pre></div>
+</div>
+<div id="i-want-to-use-a-function-that-does-x-there-must-be-a-function-for-it-but-i-dont-know-which-one" class="section level3">
+<h3>I want to use a function that does X, there must be a function for it but I don’t know which one…</h3>
+<p>You can use <code>help.search()</code> function to help you with this one, which is called by the double question mark <code>??</code>. However, this only looks through the installed packages for help pages with a match to your search request, and what you need might be in a package you haven’t yet installed</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">??kruskal</code></pre></div>
+<p>So often a generic Google or internet search “R &lt;task&gt;” will often either send you to the appropriate package documentation or a helpful forum where someone else has already asked your question.</p>
+</div>
+<div id="i-am-stuck-i-get-an-error-message-that-i-dont-understand" class="section level3">
+<h3>I am stuck… I get an error message that I don’t understand</h3>
+<p>Start by googling the error message. If the message is very generic, you might also include the name of the function or package you’re using in your query.</p>
+<p>Particulaly check any results that come up on Stack Overflow through google.</p>
+</div>
+<div id="asking-for-help" class="section level3">
+<h3>Asking for help</h3>
+<p>If you still can’t figure it out, it might be time to ask the internet for help, but please check the guidlines at the end of this lesson online for information on making sure your request for help includes enough info for people to easily help you.</p>
+<p>That’s the last learning objective for this section of the intro</p>
+</div>
+<div id="other-places-to-ask-for-help" class="section level3">
+<h3>Other places to ask for help</h3>
+<p>– The people sitting next to you in the workshop, the helpers, me, and once you leave the workshop the avenues we’ve just talked about as well as your friendly colleagues. – If your question is about a specific package, there might be a mailing list for it that would be handy to check, or the issues if it is hosted on github. There are also additional resources available at the end of this lesson at the link on the etherpad.</p>
+<p style="text-align: right; font-size: small;">
+Page built on: <U+0001F4C6> 2019-02-10 <U+2012> <U+0001F562> 14:54:48
+</p>
+</div>
+</div>
+
+<hr/>
+
+<p><a href="http://datacarpentry.org/">Data Carpentry</a>,
+  2018. <a href="LICENSE.html">License</a>. <a href="CONTRIBUTING.html">Contributing</a>. <br/>
+  Questions?  Feedback?
+  Please <a href="https://github.com/datacarpentry/R-ecology-lesson/issues/new">file
+  an issue on GitHub</a>. <br/> On
+  Twitter: <a href="https://twitter.com/datacarpentry">@datacarpentry</a></p>
+
+<!--  Algolia DocSearch -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+ apiKey: '4c64cef535ab2b7c8d1b73ed13f283e1',
+ indexName: 'datacarpentry',
+ inputSelector: '#search-box',
+ debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
