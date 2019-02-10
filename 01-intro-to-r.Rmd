@@ -190,7 +190,7 @@ weight_lb
 
 Alright, our first challenge! Going go give you guys two minutes to work through the following once I get it written down. If you get stuck, don't forget your red stickie!
 
-```{r, eval=FALSE, purl=TRUE}
+```{r, eval=FALSE, purl=FALSE}
 # Challenge
 #
 # What are the values after each statement in the following?
