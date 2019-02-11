@@ -31,7 +31,7 @@ Kia ora folks!
 -- I'll also put all the code I write today in the etherpad, starting with the learning objectives.
 
 # Set up for data directory
-If you weren't here on Monday, inside your working directory, you'll need a folder called data_output. We'll download the "here's one I prepared earlier" surveys_complete.csv file from the ResBaz webpage.s
+If you weren't here on Monday, inside your working directory, you'll need a folder called data_output. We'll download the "here's one I prepared earlier" surveys_complete.csv file from the ResBaz webpage.
 
 ------------
 
