@@ -753,21 +753,28 @@ weight_g</code></pre></div>
 <p>Aside from vectors, other important data structures are lists (<code>list</code>), matrices (<code>matrix</code>), data frames (<code>data.frame</code>), factors (<code>factor</code>) and arrays (<code>array</code>). These will come up later as we continue to work with R.</p>
 <p>But for now, that’s another learning objective down:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Inspect the content of vectors and manipulate their content.</span></code></pre></div>
-OK guys, we’ve got another two minute challenge to go here! &gt; ### Challenge &gt; &gt; * What will happen in each of these examples? (hint: use <code>class()</code> &gt; to check the data type of your objects): &gt; &gt; <code>r &gt;     num_char &lt;- c(1, 2, 3, &quot;a&quot;) &gt;     num_logical &lt;- c(1, 2, 3, TRUE) &gt;     char_logical &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, TRUE) &gt;     tricky &lt;- c(1, 2, 3, &quot;4&quot;) &gt;</code> &gt; &gt; * Why do you think it happens? &gt; &gt;
-<div class="accordion">
-<blockquote>
-<h3 class="toc-ignore">
-Answer
-</h3>
-<div style="background: #fff;">
-<p>
-<p>Vectors can be of only one data type. R tries to convert (coerce) the content of this vector to find a “common denominator” that doesn’t lose any information.</p>
-<h2 id="subsetting-vectors">Subsetting vectors</h2>
+<p>OK guys, we’ve got another two minute challenge to go here!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">### Challenge
+<span class="co"># # * What will happen in each of these examples? (hint: use `class()`</span>
+<span class="co"># &gt;   to check the data type of your objects):</span>
+<span class="co"># &gt;</span>
+<span class="co"># &gt;     ```r</span>
+<span class="co"># &gt;     num_char &lt;- c(1, 2, 3, &quot;a&quot;)</span>
+<span class="co"># &gt;     num_logical &lt;- c(1, 2, 3, TRUE)</span>
+<span class="co"># &gt;     char_logical &lt;- c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, TRUE)</span>
+<span class="co"># &gt;     tricky &lt;- c(1, 2, 3, &quot;4&quot;)</span>
+<span class="co"># &gt;     ```</span>
+<span class="co"># &gt;</span>
+<span class="co"># &gt; * Why do you think it happens?</span>
+<span class="co"># &gt;</span>
+<span class="co"># &gt; ```{text_answer, echo=FALSE, purl=FALSE}</span>
+<span class="co"># &gt; Vectors can be of only one data type. R tries to</span>
+<span class="co"># &gt; convert (coerce) the content of this vector to find a &quot;common</span>
+<span class="co"># &gt; denominator&quot; that doesn&#39;t lose any information.</span></code></pre></div>
+</div>
+<div id="subsetting-vectors" class="section level2">
+<h2>Subsetting vectors</h2>
 <p>The next thing we want to learn is how to extract bits and pieces from our vector</p>
-</div>
-</div>
-</p>
-</blockquote>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#If we want to extract one or several values from a vector, we provide one</span>
 <span class="co">#or several indices in square brackets.</span>
 animals &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;mouse&quot;</span>, <span class="st">&quot;rat&quot;</span>, <span class="st">&quot;dog&quot;</span>, <span class="st">&quot;cat&quot;</span>)
@@ -875,7 +882,7 @@ heights_above_<span class="dv">67</span> &lt;-<span class="st"> </span>heights_n
 </blockquote>
 <p>Next up, manipulating proper data sets!</p>
 <p style="text-align: right; font-size: small;">
-Page built on: 📆 2019-02-11 ‒ 🕢 12:59:58
+Page built on: 📆 2019-02-11 ‒ 🕢 13:03:32
 </p>
 </div>
 
