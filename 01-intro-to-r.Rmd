@@ -456,7 +456,7 @@ animals[animals %in% c("rat", "cat", "dog", "duck", "goat")]
 
 Quick challenge - two minutes, stickies if you are stuck
 ```{r, eval=FALSE, purl=FALSE}
-# Challenge (optional){.challenge}
+# Challenge
 #
 # Can you figure out why `"four" > "five"` returns `TRUE`?
 # 
