@@ -372,23 +372,21 @@ But for now, that's another learning objective down:
 
 OK guys, we've got another two minute challenge to go here!
 ```{r, eval=FALSE, purl=FALSE}
-### Challenge
-# # * What will happen in each of these examples? (hint: use `class()`
-# >   to check the data type of your objects):
-# >
-# >     ```r
-# >     num_char <- c(1, 2, 3, "a")
-# >     num_logical <- c(1, 2, 3, TRUE)
-# >     char_logical <- c("a", "b", "c", TRUE)
-# >     tricky <- c(1, 2, 3, "4")
-# >     ```
-# >
-# > * Why do you think it happens?
-# >
-# > ```{text_answer, echo=FALSE, purl=FALSE}
-# > Vectors can be of only one data type. R tries to
-# > convert (coerce) the content of this vector to find a "common
-# > denominator" that doesn't lose any information.
+# Challenge
+# What will happen in each of these examples? (hint: use `class()`
+#   to check the data type of your objects):
+#
+#
+#     num_char <- c(1, 2, 3, "a")
+#     num_logical <- c(1, 2, 3, TRUE)
+#     char_logical <- c("a", "b", "c", TRUE)
+#     tricky <- c(1, 2, 3, "4")
+#
+# Why do you think it happens?
+#
+# Vectors can be of only one data type. R tries to
+# convert (coerce) the content of this vector to find a "common
+# denominator" that doesn't lose any information.
 ```
 ## Subsetting vectors
 
